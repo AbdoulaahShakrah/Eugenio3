@@ -1,0 +1,252 @@
+/****************** HOMEPAGE **************************************/
+
+html {
+    min-height: 100%;
+    margin: 0;
+    background: whitesmoke;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: whitesmoke;
+}
+
+button {
+    background-color: blue
+}
+
+button:hover {
+    background-color: cadetblue
+}
+
+.title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+#successMessage {
+    display: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container > button {
+    margin: 1rem 0;
+    font-size: 2rem;
+    padding: 1.5rem 3rem;
+    width: 50%;
+    text-align: center;
+}
+
+#configBtn {
+    background: #b2b2b2;
+    color: white;
+}
+
+#configBtn:hover {
+    background: #cbcbcb;
+}
+
+@media (max-width: 1080px) {
+    .container > button {
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 720px) {
+    .container > button {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+.first-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.logo-container {
+    height: fit-content;
+}
+
+.end-session-container {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    align-items: center;
+    gap: 10px;
+}
+
+.h1-title-container {
+    height: fit-content;
+}
+
+.custom-logo {
+    width: 80px;
+    height: 80px;
+}
+
+@media (max-width: 768px) {
+    .custom-logo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/******************************  HOMEPAGE END *******************************************/
+
+.menu-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.menu-btn-container-configurations {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+/**********************************************************************/
+
+.main-menu-btn {
+    width: fit-content;
+    float: left;
+    margin-left: 15px;
+}
+
+.main-menu-btn-second-div {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.end-session-button {
+    background-color: #e53e3e;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.end-session-button:hover {
+    background-color: #c53030;
+}
+
+
+@media (max-width: 1024px) {
+    .main-container-desafio,
+    .choose-session-main-container,
+    .configurations-main-container,
+    .main-container-desafio {
+        width: 90%;
+    }
+
+    .main-container-desafio, button {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .h1-title-container {
+        font-size: 10.25rem;
+    }
+}
+
+.main-container-desafio {
+    display: flex;
+    flex-direction: column;
+}
+
+/************************* RESULTADOS GERAIS ***********************************************/
+
+
+.results-main-container {
+    width: 80%;
+    max-width: 80%;
+    margin: 0 auto;
+    background-color: whitesmoke;
+    /*border: red solid 2px;*/
+}
+
+.results-table {
+    text-align: center;
+    border-collapse: collapse;
+    background-color: rgba(26, 188, 156, 0.2);
+    width: 100%;
+    overflow: hidden;
+}
+
+.results-table th,
+.results-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.results-table thead tr {
+    background-color: rgba(164, 233, 219, 0.8);
+    border-bottom: 2px solid #16a085;
+}
+
+.results-table tbody tr:nth-child(even) {
+    background-color: rgba(149, 165, 166, 0.1);
+}
+
+.results-table tbody tr:hover {
+    background-color: rgba(18, 115, 243, 0.2);
+}
+
+.results-table th {
+    font-weight: 700;
+    color: #333;
+}
+
+.table-container {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+
+/********************** textarea ***************************/
+
+#expected-text {
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#input-text {
+    resize: none;
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    width: 100%;
+    height: 200px; /* Adjust the height as needed */
+}
+
+#input-text:focus {
+    outline: none;
+    border-color: #38a169;
+}
+
+
+
