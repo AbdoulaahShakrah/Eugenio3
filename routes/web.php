@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ConfiguracaoController;
@@ -40,6 +41,13 @@ Route::post('/adicionarJogador', [RealizarInscricoes::class, 'adicionarJogador']
 Route::get('/criar-sessao', [SessaoController::class, 'criarSessao'])->name('criar-sessao');
 
 Route::get('/classificacao-config', [ClassificacaoAtualController::class, 'index'])->name('classificacao-config');
+
+
+
+
+// V3 2024-2025
+
+Route::get('v3/', [MainController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
