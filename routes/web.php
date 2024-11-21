@@ -11,7 +11,11 @@ use App\Http\Controllers\VerResultados;
 use App\Http\Controllers\SessaoController;
 use App\Http\Controllers\DesafioController;
 use App\Http\Controllers\ClassificacaoAtualController;
+use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\SessionController;
 
+/*
 Route::get('/', [HomeController::class,'index']);
 
 Route::get('/realizar-inscricoes', [RealizarInscricoes::class, 'index'])->name('realizar-inscricoes');
@@ -41,13 +45,23 @@ Route::post('/adicionarJogador', [RealizarInscricoes::class, 'adicionarJogador']
 Route::get('/criar-sessao', [SessaoController::class, 'criarSessao'])->name('criar-sessao');
 
 Route::get('/classificacao-config', [ClassificacaoAtualController::class, 'index'])->name('classificacao-config');
-
+*/
 
 
 
 // V3 2024-2025
 
 Route::get('v3/', [MainController::class, 'index']);
+Route::post('v3/', [MainController::class, 'handleButtons']);
+
+Route::get('v3/sessions', [SessionController::class, 'index'])->name('sessions.index');
+Route::post('v3/sessions', [SessionController::class, 'store'])->name('session.store');
+
+Route::get('v3/configurations', [ConfigurationController::class, 'index'])->name('configs.index');
+
+Route::get('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'sessionPlayers'])->name('player.sessionPlayers');
+Route::post('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'store'])->name('player.store');
+
 
 /*
 |--------------------------------------------------------------------------

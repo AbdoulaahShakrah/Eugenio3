@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    align-items: center;
+    background-color: #d3d3d3;
+    padding: 10px 20px;
+    border: 2px solid #2980b9;
+    border-radius: 5px;
+}
+
+/* Logo */
+.logo {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px;
+    margin-right: 20px;
+}
+
+/* Título */
+h1 {
+    font-size: 20px;
+    color: #333;
+    flex-grow: 1;
+    margin: 0;
+}
+
+/* Botão Admin */
+button {
+    background-color: #8bc34a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #7cb342;
+}

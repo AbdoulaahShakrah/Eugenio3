@@ -15,7 +15,7 @@ Esta aplicação permite criar e gerir sessões, jogadores e configurações. O 
 
 ### 1.  First project commit
 
-Commit inicial, começo da versão 2
+Commit inicial, começo da versão 3
 
 ### 2. commit test
 

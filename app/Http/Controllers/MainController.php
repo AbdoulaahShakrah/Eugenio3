@@ -9,19 +9,23 @@ use App\Models\Player;
 class MainController extends Controller
 {
     public function index(){
+        return view('home_page');
+    }
 
-        // EXPERIÊNCIAS
+    public function handleButtons(Request $request){
+        $action = $request->input('action');
 
-        $players_in_session1 = Session::find(1)->players();
-        $playersandsession = Session::with('players')->get();
-        
-        echo $playersandsession;
-
-        $player = Player::with('tests.configuration')->find(1);
-
-        //echo $player->toJson();
-
-        
-
+        switch ($action){
+            case 'sessions':
+                return redirect()->route('sessions.index');
+            case 'configs':
+                return redirect()->route('configs.index');
+            case 'start':
+                #return redirect()->route('challenge.start');
+            case 'results':
+                #return redirect()->route('results.index');
+            default:
+                #return back()->with('error', 'Ação inválida!');
+        }
     }
 }
