@@ -10,9 +10,9 @@
 
 @section('content')
 
-@if (session('success'))
+@if (session('delete_success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
+        {{ session('delete_success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
@@ -34,7 +34,7 @@
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
                 </form>
-                <form action="#" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
+                <form action="{{ route('session.destroy', ['id' => $session->session_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
@@ -50,8 +50,8 @@
         <form action="{{route('session.store')}}" method="POST">
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control border border-success" name="session_name" placeholder="Nome da sessão" required>
-                <button class="btn btn-success" type="submit">
+                <input type="text" class="form-control border border-success me-5  ms-3 rounded" name="session_name" placeholder="Nome da sessão" required>
+                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </button>
             </div>

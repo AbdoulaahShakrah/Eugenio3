@@ -9,12 +9,22 @@
 @section('instruction', 'Lista dos jogadores')
 
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+@if (session('store_success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong>Sucesso!</strong> {{ session('store_success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
 @endif
+
+@if (session('delete_success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <strong>Sucesso!</strong> {{ session('delete_success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+@endif
+
+
 <div class="row justify-content-center">
     @foreach($players as $player)
     <div class="col-md-10 mb-3">
@@ -28,8 +38,8 @@
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
                 </form>
-                <form action="#" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
-                    @csrf
+                <form action="{{ route('player.destroy', ['id1' => request()->route('id'), 'id2' => $player->player_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este jogador?')">
+                @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
@@ -43,9 +53,9 @@
     <div class="col-md-10 mb-5">
         <form action="{{route('player.store', ['id' => request()->route('id')] )}}" method="POST">
             @csrf
-            <div class="input-group">
-                <input type="text" class="form-control border border-success" name="player_name" placeholder="Nome do jogador" required>
-                <button class="btn btn-success" type="submit">
+            <div class="input-group ">
+                <input type="text" class="form-control border border-success me-5  ms-3 rounded" name="player_name" placeholder="Nome do jogador" required>
+                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </button>
             </div>

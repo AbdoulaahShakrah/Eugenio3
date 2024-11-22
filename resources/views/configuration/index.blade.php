@@ -23,8 +23,8 @@
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
                 </form>
-                <form action="#" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
-                    @csrf
+                <form action="{{ route('config.destroy', ['id' => $configuration->configuration_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta configuração?')">
+                @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
@@ -39,8 +39,8 @@
         <form action="#" method="POST">
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control border border-success" name="session_name" placeholder="Nome da sessão" required>
-                <button class="btn btn-success" type="submit">
+                <input type="text" class="form-control border border-success me-5  ms-3 rounded" name="session_name" placeholder="Nome da configuração" required>
+                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </button>
             </div>

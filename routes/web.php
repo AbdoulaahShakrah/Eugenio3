@@ -14,6 +14,7 @@ use App\Http\Controllers\ClassificacaoAtualController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SessionController;
+use App\Models\Configuration;
 
 /*
 Route::get('/', [HomeController::class,'index']);
@@ -51,16 +52,23 @@ Route::get('/classificacao-config', [ClassificacaoAtualController::class, 'index
 
 // V3 2024-2025
 
+Route::redirect('/', 'v3/');
+
 Route::get('v3/', [MainController::class, 'index']);
 Route::post('v3/', [MainController::class, 'handleButtons']);
 
 Route::get('v3/sessions', [SessionController::class, 'index'])->name('sessions.index');
 Route::post('v3/sessions', [SessionController::class, 'store'])->name('session.store');
+Route::delete('v3/sessions/{id}', [SessionController::class, 'destroy'])->name('session.destroy');
 
-Route::get('v3/configurations', [ConfigurationController::class, 'index'])->name('configs.index');
+Route::get('v3/configurations', [ConfigurationController::class, 'index'])->name('config.index');
+Route::delete('v3/configurations/{id}', [ConfigurationController::class, 'destroy'])->name('config.destroy');
 
 Route::get('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'sessionPlayers'])->name('player.sessionPlayers');
 Route::post('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'store'])->name('player.store');
+Route::delete('v3/sessions/sessionPlayers/{id1}/players/{id2}', [PlayerController::class, 'destroy'])->name('player.destroy');
+
+
 
 
 /*
