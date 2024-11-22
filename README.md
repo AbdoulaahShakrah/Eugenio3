@@ -29,6 +29,11 @@ Criadas migrações, seeders e models para corresponder a base de dados desenhad
 
 ficheiro readme foi corrigido. Todos os seguintes commits terão informação adicional do desenvolvimento do projeto.
 
+### 5. Refactored routes and added functionalities
+
+Foram configuradas as rotas para os botões da pagina inicial de "Gerir sessões" e "Gerir configurações" foram criados 3 controladores "ConfigurationController", "SessionController" e "PlayerConfiguration" e as vistas que correspondem as tarefas de mostrar os configurações, sessões, jogadores de uma determinada sessão e adicionar sessão e jogador.
+
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
