@@ -26,4 +26,10 @@ class PlayerController extends Controller
         $player->delete();
         return redirect()->back()->with('success', 'Jogador excluído com sucesso!');
     }
+
+    public function edit(Request $request){
+
+        Player::find($request->input('id'))->update(['player_name' => $request->input('name')]);
+        return redirect()->route('player.sessionPlayers', ['id' => $request->input(key: 'session_id')])->with('editSucess', 'Nome do jogador editado com sucesso');
+    }
 }

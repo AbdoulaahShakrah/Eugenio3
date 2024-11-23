@@ -28,18 +28,35 @@
     @foreach($sessions as $session)
     <div class="col-md-10 mb-0">
         <div class="d-flex justify-content-between align-items-center p-3 border border-light rounded">
-            <div class="flex-grow-1 p-2 rounded text-white py-3 text-center" style="background-color: #28a745;">
+            <div id="sessionName{{$session->session_id}}" class="flex-grow-1 p-2 rounded text-white py-3 text-center" style="background-color: #28a745;">
                 <a href="/v3/sessions/sessionPlayers/{{$session->session_id}}" class="text-decoration-none text-white">
                     <h5 class="mb-0">{{$session->session_name}} </h5>
                 </a>
             </div>
 
             <div class="d-flex align-items-center ms-3">
-                <form action="#" method="GET" class="me-2">
-                    <button class="btn btn-outline-secondary rounded-circle" type="submit" style="width: 40px; height: 40px;">
+                <form action="{{ route('session.update') }}" method="POST" class="me-2">
+                    @method('patch')
+                    <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary rounded-circle" style="width: 40px; height: 40px;">
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </button>
+                    <input type="hidden" name="id" value="{{$session->session_id}}">
+                    <input type="text" name="name" id="writeName{{$session->session_id}}" class="mb-0 d-none" placeholder="Nome" value="{{$session->session_name}}">
+                    <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success rounded-circle d-none" type="submit" style="width: 40px; height: 40px;">
+                        <i class="fas fa-check"></i>
+                    </button>
                 </form>
+
+                <script>
+                    document.getElementById("buttonEdit{{$session->session_id}}").addEventListener("click", function() {
+                        event.preventDefault(); // necessário. Sem isto é feito submit ao clicar em editar.
+                        document.getElementById("buttonConfirmEdit{{$session->session_id}}").classList.remove('d-none');
+                        document.getElementById("buttonEdit{{$session->session_id}}").classList.add('d-none');
+                        document.getElementById("sessionName{{$session->session_id}}").classList.add('d-none');
+                        document.getElementById("writeName{{$session->session_id}}").classList.remove('d-none');
+
+                    });
+                </script>
                 
                 <form action="{{ route('session.destroy', ['id' => $session->session_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
                     @csrf

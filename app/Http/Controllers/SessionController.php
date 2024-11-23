@@ -19,11 +19,9 @@ class SessionController extends Controller
         return redirect()->back()->with('success', 'Sessão adicionada com sucesso!');
     }
 
-    public function update(Request $request, $id){
-        $session_name = $request->input('session_name');
-        $session = Session::findOrFail($id);
-        $session->update(['session_name' => $session_name]);
-        return redirect()->back()->with('success', 'Sessão adicionada com sucesso!');
+    public function update(Request $request){
+        Session::find($request->input('id'))->update(['session_name' => $request->input('name')]);
+        return redirect()->back()->with('success', 'Feito update a sessão com sucesso!');
     }
 
     public function destroy($id){
