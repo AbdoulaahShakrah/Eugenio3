@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'App Eugenio')</title>
+    <title>@yield('title', 'App Eugénio')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -19,13 +19,21 @@
             </div>
         </div>
 
-        <h1 class="ms-3 fs-4 mb-0 text-center flex-grow-1 text-dark ">@yield('header', 'Circuito de Testes Eugênio')</h1>
-        <button class="btn btn-success rounded-pill px-4">@yield('button', 'Voltar')</button>
+        <h1 class="ms-3 fs-4 mb-0 text-center flex-grow-1 text-dark ">@yield('header', 'Circuito de Testes Eugénio')</h1>
+        <button class="btn btn-success rounded-pill px-4" onclick="goBack()">@yield('button', 'Voltar')</button>
+        <script>
+            // Função para voltar à página anterior, com lógica para evitar voltar à página atual
+            function goBack() {
+                window.history.back(); // Volta para a página anterior
+            }
+        </script>
+
+
     </header>
 
     <main class="container">
         <div class="text-center mb-4">
-            <h5 class="text-secondary border-bottom border-dark">@yield('instruction', 'Escolha uma opção abaixo')</h5>
+            <h5 class="text-secondary border-bottom border-dark">@yield('instruction', 'Escolha uma opção')</h5>
         </div>
         @yield('content')
     </main>

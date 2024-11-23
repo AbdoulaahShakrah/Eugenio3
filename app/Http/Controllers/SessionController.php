@@ -16,11 +16,17 @@ class SessionController extends Controller
     public function store(Request $request){
         $session_name = $request->input('session_name');
         Session::create(['session_name' => $session_name]);
-        return redirect()->back()->with('success', 'Sessão criada com sucesso!');
+        return redirect()->back()->with('success', 'Sessão adicionada com sucesso!');
     }
 
-      public function destroy($id){
-        
+    public function update(Request $request, $id){
+        $session_name = $request->input('session_name');
+        $session = Session::findOrFail($id);
+        $session->update(['session_name' => $session_name]);
+        return redirect()->back()->with('success', 'Sessão adicionada com sucesso!');
+    }
+
+    public function destroy($id){
         $players = Player::where('session_id', $id)->get();
         foreach ($players as $player) {
             $player->delete();
@@ -28,7 +34,6 @@ class SessionController extends Controller
 
         $session = Session::where('session_id', $id)->firstOrFail();
         $session->delete();
-        return redirect()->back()->with('delete_success', 'Session excluído com sucesso!');
-
+        return redirect()->back()->with('success', 'Sessão excluída com sucesso!');
     }
 }
