@@ -19,7 +19,8 @@ class TestSeeder extends Seeder
                 'wpm' => 40, 
                 'test_error' => 0, 
                 'test_correct' => 10,
-                'test_time' => date('00:i:s'), 
+                'test_time' => date('00:i:s'),
+                'final_score' => 200, 
                 'created_at' => date("Y/m/d")
             ]
         );

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Player;
+use App\Models\Session;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,69 +14,13 @@ class PlayerSeeder extends Seeder
      */
     public function run(): void
     {
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 1
-            ]
-        );
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 1
-            ]
-        );
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 1
-            ]
-        );
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 1
-            ]
-        );
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 1
-            ]
-        );
-
-
-        // session 2
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 2
-            ]
-        );
-
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 2
-            ]
-        );
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 2
-            ]
-        );
-        Player::insert(
-            [
-                'player_name' => fake()->name(),
-                'session_id' => 2
-            ]
-        );
-            
+        foreach(Session::all() as $session){
+            Player::factory(5)
+                            ->create([
+                                            'session_id' => $session->session_id, 
+                                            'created_at' => $session->created_at
+                                        ]
+                                    );
+        }
     }
 }

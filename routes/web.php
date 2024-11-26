@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ use App\Models\Configuration;
 
 Route::redirect('/', 'v3');
 
-Route::get('v3', [MainController::class, 'index']);
+Route::get('v3', [MainController::class, 'index'])->name('home');
 Route::post('v3', [MainController::class, 'handleButtons']);
 
 Route::get('v3/sessions', [SessionController::class, 'index'])->name('sessions.index');
@@ -40,6 +41,13 @@ Route::get('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'session
 Route::post('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'store'])->name('player.store');
 Route::patch('v3/sessions/sessionsPlayers/edit', [PlayerController::class, 'edit'])->name('player.edit');
 Route::delete('v3/sessions/sessionPlayers/{id1}/players/{id2}', [PlayerController::class, 'destroy'])->name('player.destroy');
+
+Route::get('/chooseSessionTest', [ChallengeController::class, 'chooseSession'])->name('challenge.start.session');
+Route::get('chooseSessionTest/{session_id}', [ChallengeController::class, 'choosePlayer'])->name('challenge.start.player');
+Route::get('chooseSessionTest/{session_id}/{player_id}', [ChallengeController::class, 'chooseConfig'])->name('challenge.start.config');
+Route::get('chooseSessionTest/{session_id}/{player_id}/{config_id}', [ChallengeController::class, 'confirmSettings'])->name('challenge.start.confirm');
+Route::get('/desafio/{player_id}/{config_id}', [ChallengeController::class, 'playGame'])->name(name: 'challenge');
+Route::get('/classificacao-config', [ChallengeController::class, 'showResult'])->name('classificacao-config');
 
 /*
 |--------------------------------------------------------------------------

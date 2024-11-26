@@ -20,7 +20,13 @@
         </div>
 
         <h1 class="ms-3 fs-4 mb-0 text-center flex-grow-1 text-dark ">@yield('header', 'Circuito de Testes Eugénio')</h1>
-        <button class="btn btn-success rounded-pill px-4" onclick="goBack()">@yield('button', 'Voltar')</button>
+        @if ( Request::route()->getName() != 'home' )
+            <a href="@yield('return')">
+                <button class="btn btn-success rounded-pill px-4" onclick="goBack()">@yield('button', 'Voltar')</button>
+            </a>
+        @endif
+        
+        
         <script>
             // Função para voltar à página anterior, com lógica para evitar voltar à página atual
             function goBack() {

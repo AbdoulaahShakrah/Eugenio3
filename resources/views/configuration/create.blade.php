@@ -3,6 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Definir os campos da configuração')
+@section('return', route('config.index'))
 @section('content')
 
 <div class="row justify-content-center">

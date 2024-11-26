@@ -21,7 +21,7 @@ class MainController extends Controller
             case 'configs':
                 return redirect()->route('config.index');
             case 'start':
-                #return redirect()->route('challenge.start');
+                return redirect()->route('challenge.start.session');
             case 'results':
                 #return redirect()->route('results.index');
             default:

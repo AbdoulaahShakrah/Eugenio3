@@ -3,6 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Lista de jogadores')
+@section('return', route('sessions.index'))
 @section('content')
 
 @if (session('success'))
@@ -45,58 +46,60 @@
 
 @endif
 
-<div class="row justify-content-center">
+<div class="row justify-content-center ms-5">
     @foreach($players as $player)
-    <div class="col-md-10 mb-0">
-        <div class="d-flex justify-content-between align-items-center p-3 border border-light rounded">
-            <div class="flex-grow-1 p-2 rounded text-white py-3 text-center" style="background-color: #28a745;">
-                    <h5 id="playerName{{$player->player_id}}" class="mb-0">{{$player->player_name}}</h5>        
-            </div>
-
-            <div class="d-flex align-items-center ms-3">
-                <form action="{{ route('player.edit')}}" method="POST" class="me-2">
+        <div class="col-md-10 mb-2">
+            <div class="d-flex align-items-center">
+                <form action="{{ route('player.edit')}}" method="POST" class="d-flex flex-grow-1 flex-row align-items-center">
                     @method('patch')
-                    <button id="buttonEdit{{$player->player_id}}" class="btn btn-outline-secondary rounded-circle" style="width: 40px; height: 40px;">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                    </button>
-                    <input type="hidden" name="session_id" value="{{$player->session_id}}">
-                    <input type="hidden" name="id" value="{{$player->player_id}}">
-                    <input type="text" name="name" id="writeName{{$player->player_id}}" class="mb-0 d-none" placeholder="Nome" value="{{$player->player_name}}">
+                    <div class="input-group flex flex-row align-items-center justify-content-center">
 
-                    <button id="buttonConfirmEdit{{$player->player_id}}"  class="btn btn-outline-success rounded-circle d-none" type="submit" style="width: 40px; height: 40px;">
-                        <i class="fas fa-check"></i>
-                    </button>  
+                        <input type="hidden" name="session_id" value="{{$player->session_id}}">
+                        <input type="hidden" name="id" value="{{$player->player_id}}">
+
+                        <div class="flex-grow-1 align-items-center me-3">
+                            <h5 id="playerName{{$player->player_id}}" class="p-2 py-3 mb-0 w-100 rounded border border-success text-white text-center" style="background-color: #28a745;">{{$player->player_name}}</h5>
+                            <input type="text" name="name" id="writeName{{$player->player_id}}" class="form-control p-2 py-3 w-100 border border-success rounded text-center d-none" placeholder="Nome" value="{{$player->player_name}}">
+                        </div>     
+                        
+                        <button id="buttonEdit{{$player->player_id}}" class="btn btn-outline-secondary rounded-circle me-1">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        </button>
+                        
+                        <button id="buttonConfirmEdit{{$player->player_id}}"  class="btn btn-outline-success rounded-circle me-1 d-none" type="submit" >
+                            <i class="fas fa-check"></i>
+                        </button>  
+                    </div>
+
+                    <script>
+                        document.getElementById("buttonEdit{{$player->player_id}}").addEventListener("click", function() {
+                            event.preventDefault(); // necessário. Sem isto é feito submit ao clicar no butão editar.
+                            document.getElementById("buttonConfirmEdit{{$player->player_id}}").classList.remove('d-none');
+                            document.getElementById("buttonEdit{{$player->player_id}}").classList.add('d-none');
+                            document.getElementById("playerName{{$player->player_id}}").classList.add('d-none');
+                            document.getElementById("writeName{{$player->player_id}}").classList.remove('d-none');
+
+                        });
+                    </script>
                 </form>
-
-                <script>
-                    document.getElementById("buttonEdit{{$player->player_id}}").addEventListener("click", function() {
-                        event.preventDefault(); // necessário. Sem isto é feito submit ao clicar no butão editar.
-                        document.getElementById("buttonConfirmEdit{{$player->player_id}}").classList.remove('d-none');
-                        document.getElementById("buttonEdit{{$player->player_id}}").classList.add('d-none');
-                        document.getElementById("playerName{{$player->player_id}}").classList.add('d-none');
-                        document.getElementById("writeName{{$player->player_id}}").classList.remove('d-none');
-
-                    });
-                </script>
                 
-                <form action="{{ route('player.destroy', ['id1' => request()->route('id'), 'id2' => $player->player_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este jogador?')">
-                @csrf
+                <form action="{{ route('player.destroy', ['id1' => request()->route('id'), 'id2' => $player->player_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este jogador?')" class="d-flex justify-content-center align-items-center ms-2">
+                    @csrf
                     @method('DELETE')
-                    <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
+                    <button class="btn btn-outline-danger rounded-circle" type="submit">
                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>
-        </div>
     </div>
     @endforeach
 
     <div class="col-md-10 mb-0">
         <form action="{{route('player.store', ['id' => request()->route('id')] )}}" method="POST">
             @csrf
-            <div class="input-group mt-3 mb-5">
-                <input type="text" class="form-control border border-success me-5  ms-3 rounded" name="player_name" placeholder="Nome do jogador" required>
-                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
+            <div class="input-group mt-3 mb-5 d-flex flex-row justify-content-center align-items-center">
+                <input type="text" class="form-control p-2 py-3 flex-grow-1 border border-success rounded text-center me-5" name="player_name" placeholder="Nome do jogador" required>
+                <button class="btn btn-success p-3 rounded-circle" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>
             </div>

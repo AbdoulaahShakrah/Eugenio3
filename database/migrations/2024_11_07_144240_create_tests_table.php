@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('test_error');
             $table->integer('test_correct');
             $table->time('test_time');
-            
+            $table->integer('final_score');
             $table->timestamps();
         });
     }

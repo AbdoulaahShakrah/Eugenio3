@@ -3,6 +3,9 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Escolha a sessão que deseja gerir')
+@section('return', route('home'))
+
+
 @section('content')
 
 @if (session('success'))
@@ -24,58 +27,62 @@
     </script>
 @endif
 
-<div class="row justify-content-center">
+<div class="row justify-content-center ms-5">
     @foreach($sessions as $session)
-    <div class="col-md-10 mb-0">
-        <div class="d-flex justify-content-between align-items-center p-3 border border-light rounded">
-            <div id="sessionName{{$session->session_id}}" class="flex-grow-1 p-2 rounded text-white py-3 text-center" style="background-color: #28a745;">
-                <a href="/v3/sessions/sessionPlayers/{{$session->session_id}}" class="text-decoration-none text-white">
-                    <h5 class="mb-0">{{$session->session_name}} </h5>
-                </a>
-            </div>
+    <div class="col-md-10 mb-2">
+        <div class="d-flex align-items-center">    
+            <form action="{{ route('session.update') }}" method="POST" class="d-flex flex-grow-1 flex-row align-items-center">
+                @method('patch')
 
-            <div class="d-flex align-items-center ms-3">
-                <form action="{{ route('session.update') }}" method="POST" class="me-2">
-                    @method('patch')
-                    <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary rounded-circle" style="width: 40px; height: 40px;">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                    </button>
-                    <input type="hidden" name="id" value="{{$session->session_id}}">
-                    <input type="text" name="name" id="writeName{{$session->session_id}}" class="mb-0 d-none" placeholder="Nome" value="{{$session->session_name}}">
-                    <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success rounded-circle d-none" type="submit" style="width: 40px; height: 40px;">
-                        <i class="fas fa-check"></i>
-                    </button>
-                </form>
+                <input type="hidden" name="id" value="{{$session->session_id}}">
 
-                <script>
-                    document.getElementById("buttonEdit{{$session->session_id}}").addEventListener("click", function() {
-                        event.preventDefault(); // necessário. Sem isto é feito submit ao clicar em editar.
-                        document.getElementById("buttonConfirmEdit{{$session->session_id}}").classList.remove('d-none');
-                        document.getElementById("buttonEdit{{$session->session_id}}").classList.add('d-none');
-                        document.getElementById("sessionName{{$session->session_id}}").classList.add('d-none');
-                        document.getElementById("writeName{{$session->session_id}}").classList.remove('d-none');
+                <div class="flex-grow-1 align-items-center me-3">
+                    <a id="sessionName{{$session->session_id}}" href="/v3/sessions/sessionPlayers/{{$session->session_id}}" class="text-decoration-none">
+                        <h5 class="p-2 py-3 mb-0 w-100 rounded border border-success text-white text-center" style="background-color: #28a745;">{{$session->session_name}} </h5>
+                    </a>
+                    <input type="text" name="name" id="writeName{{$session->session_id}}" class="form-control p-2 py-3 w-100 border border-success rounded text-center d-none" placeholder="Nome" value="{{$session->session_name}}">
+                </div>
 
-                    });
-                </script>
+
+
+                <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary rounded-circle me-1">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                </button>
                 
-                <form action="{{ route('session.destroy', ['id' => $session->session_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
-                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                    </button>
-                </form>
-            </div>
+            
+                <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success rounded-circle me-1 d-none">
+                    <i class="fas fa-check"></i>
+                </button>
+            </form>
+
+            <script>
+                document.getElementById("buttonEdit{{$session->session_id}}").addEventListener("click", function() {
+                    event.preventDefault(); // necessário. Sem isto é feito submit ao clicar em editar.
+                    document.getElementById("buttonConfirmEdit{{$session->session_id}}").classList.remove('d-none');
+                    document.getElementById("buttonEdit{{$session->session_id}}").classList.add('d-none');
+                    document.getElementById("sessionName{{$session->session_id}}").classList.add('d-none');
+                    document.getElementById("writeName{{$session->session_id}}").classList.remove('d-none');
+
+                });
+            </script>
+            
+            <form action="{{ route('session.destroy', ['id' => $session->session_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')" class="d-flex justify-content-center align-items-center ms-2">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-outline-danger rounded-circle" type="submit">
+                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                </button>
+            </form>
         </div>
     </div>
     @endforeach
 
-    <div class="col-md-10 ms-0">
+    <div class="col-md-10 mb-0">
         <form action="{{route('session.store')}}" method="POST">
             @csrf
-            <div class="input-group mt-3 mb-5">
-                <input type="text" class="form-control border border-success me-5 ms-3 rounded" name="session_name" placeholder="Nome da sessão" required>
-                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
+            <div class="input-group mt-3 mb-5 d-flex flex-row justify-content-center align-items-center">
+                <input type="text" class="form-control p-2 py-3 flex-grow-1 border border-success rounded text-center me-5" name="session_name" placeholder="Nome da sessão" required>
+                <button class="btn btn-success p-3 rounded-circle" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>
             </div>

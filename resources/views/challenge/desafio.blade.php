@@ -38,7 +38,7 @@
             <p id="inputValueDivided" class="text-center text-4xl text-gray-800 font-medium mt-5"><span></span></p>
 
 
-            <p id="expected-text" class="text-gray-800 font-bold text-xl mt-10">{{ $configuracao->Texto }}</p>
+            <p id="expected-text" class="text-gray-800 font-bold text-xl mt-10">{{ $configuracao->configuration_text }}</p>
             <textarea placeholder="Assim que começar a escrever o tempo cronômetro começará a ser descontado!"
                       id="input-text" class="w-full h-64 p-5 border border-gray-400 mt-5 text-2xl"
                       id="texto"></textarea>
@@ -60,8 +60,8 @@
             let WPM = 0;
             let TIME_PASSED = 0;
             let PONTUACAO_FINAL = 0;
-            const PK_Configuracao = "{{ $configuracao->PK_Configuracao }}";
-            const PK_Jogador = "{{ $jogador->PK_Jogador }}";
+            const PK_Configuracao = "{{ $configuracao->configuration_id }}";
+            const PK_Jogador = "{{ $jogador->player_id }}";
             let textoComCertasErradas = "";
 
             const expectedText = document.querySelector("#expected-text").innerText;
@@ -124,9 +124,10 @@
                 }
 
                 const timeDisplay = document.querySelector("#time");
-                const time = "{{ $configuracao->Tempo_Configuracao }}"; // pega o valor da variável
+                const time = "{{ $configuracao->configuration_time }}"; // pega o valor da variável
                 const timeArray = time.split(":"); // divide o tempo em horas, minutos e segundos
                 let totalSeconds = parseInt(timeArray[0]) * 3600 + parseInt(timeArray[1]) * 60 + parseInt(timeArray[2]); // converte para segundos
+                
                 let startCronoSeconds = totalSeconds;
 
 

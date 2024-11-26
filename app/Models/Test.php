@@ -13,7 +13,7 @@ class Test extends Model
 
     protected $primaryKey = 'test_id';
 
-    protected $fillable = ['player_id', 'configuration_id', 'wpm', 'test_error', 'test_correct', 'test_time', 'created_at'];
+    protected $fillable = ['player_id', 'configuration_id', 'wpm', 'test_error', 'test_correct', 'test_time', 'final_score' , 'created_at'];
 
     public function player()
     {

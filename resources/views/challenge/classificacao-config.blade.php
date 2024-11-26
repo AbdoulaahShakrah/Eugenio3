@@ -38,11 +38,11 @@
             <tbody>
             <tr>
                 <td>{{ $NomeJogador }}</td>
-                <td>{{ $classificacao->WPM }}</td>
-                <td>{{ $classificacao->QTD_Erros }}</td>
-                <td>{{ $classificacao->QTD_Certas }}</td>
-                <td>{{ $classificacao->Tempo }}</td>
-                <td>{{ $classificacao->Pontuacao_Final }}</td>
+                <td>{{ $classificacao->wpm }}</td>
+                <td>{{ $classificacao->test_error }}</td>
+                <td>{{ $classificacao->test_correct }}</td>
+                <td>{{ $classificacao->test_time}}</td>
+                <td>{{ $classificacao->final_score }}</td>
             </tr>
             </tbody>
         </table>
@@ -55,13 +55,13 @@
         ?>
     </div>
 
-    <div class="container">
-        <div class="text-center mt-10">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mt-6"
-                    onclick="location.href='{{url('iniciar-desafio')}}'">Iniciar Desafio
-            </button>
-        </div>
-    </div>
+
+    <a href="{{ route('challenge.start.player', ['session_id' => $classificacao->player->session->session_id]) }}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mt-6">
+            Voltar
+        </button>
+    </a>
+    
 </div>
 </body>
 
