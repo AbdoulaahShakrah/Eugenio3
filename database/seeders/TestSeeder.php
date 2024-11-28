@@ -14,6 +14,7 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         Test::insert([
+                'session_id' => 1,
                 'player_id' => 1, 
                 'configuration_id' => 1, 
                 'wpm' => 40, 

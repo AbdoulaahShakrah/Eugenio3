@@ -11,9 +11,7 @@ class Player extends Model
     use HasFactory;
 
     protected $table = 'players';
-
     protected $primaryKey = 'player_id';
-
     protected $fillable = ['player_name', 'session_id'];
 
     public function session(): BelongsTo {

@@ -4,6 +4,7 @@
 @section('button', 'Voltar')
 @section('instruction', 'Escolha a configuração que deseja gerir')
 @section('return', route('home'))
+
 @section('content')
 
 @if (session('success'))
@@ -25,40 +26,40 @@
     </script>
 @endif
 
-<div class="row justify-content-center">
+<div class="row justify-content-center ms-5">
     @foreach($configurations as $configuration)
-    <div class="col-md-10 mb-0">
-        <div class="d-flex justify-content-between align-items-center p-3 border border-light rounded">
-            <div class="flex-grow-1 p-2 rounded text-white py-3 text-center" style="background-color: #28a745;">
-                <h5 class="mb-0">{{$configuration->configuration_title}}</h5>
-            </div>
+        <div class="col-md-10 mb-2">
+            <div class="d-flex align-items-center">
+                <div class="p-2 py-3 mb-0 w-100 rounded border-success text-white text-center" style="background-color: #28a745;">
+                    <h5 class="mb-0">{{$configuration->configuration_title}}</h5>
+                </div>
 
-            <div class="d-flex align-items-center ms-3">
-                <form action="{{ route('config.change', ['id' => $configuration->configuration_id]) }}" method="POST" class="me-2">
-                @csrf
-                    <button class="btn btn-outline-secondary rounded-circle" type="submit" style="width: 40px; height: 40px;">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                    </button>
-                </form>
-
-                <form action="{{ route('config.destroy', ['id' => $configuration->configuration_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta configuração?')">
+                <div class="d-flex align-items-center ms-3">
+                    <form action="{{ route('config.change', ['id' => $configuration->configuration_id]) }}" method="POST" class="me-2">
                     @csrf
-                    @method('DELETE')
-                    <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
-                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                    </button>
-                </form>
+                        <button class="btn btn-outline-secondary rounded-circle" type="submit" style="width: 40px; height: 40px;">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        </button>
+                    </form>
+
+                    <form action="{{ route('config.destroy', ['id' => $configuration->configuration_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta configuração?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger rounded-circle" type="submit" style="width: 40px; height: 40px;">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     @endforeach
 
     <div class="col-md-10 ms-0">
         <form action="{{route('config.create')}}" method="POST">
             @csrf
             <div class="input-group mt-3 mb-5">
-                <input type="text" class="form-control border border-success me-5  ms-3 rounded" name="config_name" placeholder="Nome da configuração" required>
-                <button class="btn btn-success p-3 rounded-circle me-3" type="submit">
+                <input type="text" class="form-control border border-success me-4 ms-0 rounded" name="config_name" placeholder="Nome da configuração" required>
+                <button class="btn btn-success p-3 rounded-circle me-4" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>
             </div>

@@ -3,7 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('return', route('home'))
-@section('instruction', 'Configuração de testes')
+@section('instruction', 'Configuração do Teste')
 
 
 @section('content')
@@ -27,7 +27,7 @@
     </script>
 @endif
 
-<div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 my-5">
+<div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 mb-4">
     <h5><strong>Progesso:</strong></h5>
     <progress id="file" value="25" max="100" class="flex-grow-1 py-4"> 0% </progress>
     <script>
@@ -47,15 +47,12 @@
     </script>
 </div>
 
-<h2>Dados de Configuração:</h2>
-<h3><strong>Nome de Sessão: </strong>{{$session->session_name}}</h3>
-<h3><strong>Nome de Jogador: </strong>{{$player->player_name}}</h3>
-<h3><strong>Nome de Configuração: </strong>{{$config->configuration_title}}</h3>
-<form action="{{ route('challenge', ['player_id' => $player->player_id, 'config_id' => $config->configuration_id]) }}" method="GET">
-    <button type="submit">Confirmar</button>
+<h2>Dados do Teste:</h2>
+<h3 class="h5 p-2 py-4 mb-3 w-100 rounded border border-success text-center"><strong>Nome de Sessão: </strong>{{$session->session_name}}</h3>
+<h3 class="h5 p-2 py-4 mb-3 w-100 rounded border border-success text-center"><strong>Nome de Jogador: </strong>{{$player->player_name}}</h3>
+<h3 class="h5 p-2 py-4 mb-3 w-100 rounded border border-success text-center"><strong>Nome de Configuração: </strong>{{$config->configuration_title}}</h3>
+<form action="{{ route('challenge', ['player_id' => $player->player_id, 'config_id' => $config->configuration_id, 'session_id' => $session->session_id]) }}" method="GET">
+    <button type="submit" class="h5 p-2 py-4 mb-0 w-100 rounded border border-success text-white text-center" style="background-color: #28a745;">Confirmar</button>
 </form>
-
-
-
 
 @endsection

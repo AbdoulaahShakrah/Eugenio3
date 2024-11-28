@@ -12,11 +12,8 @@ class Session extends Model
     use HasFactory;
 
     protected $table = 'sessions';
-
     protected $primaryKey = 'session_id';
-
     protected $fillable = ['session_name', 'created_at'];
-
 
     public function players(): HasMany {
         return $this->hasMany(Player::class, 'session_id', 'session_id');

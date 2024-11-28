@@ -23,7 +23,7 @@ class MainController extends Controller
             case 'start':
                 return redirect()->route('challenge.start.session');
             case 'results':
-                #return redirect()->route('results.index');
+                return redirect()->route('final-results');
             default:
                 #return back()->with('error', 'Ação inválida!');
         }

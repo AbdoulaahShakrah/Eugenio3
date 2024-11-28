@@ -4,13 +4,14 @@
 @section('button', 'Voltar')
 @section('instruction', 'Definir os campos da configuração')
 @section('return', route('config.index'))
+
 @section('content')
 
-<div class="row justify-content-center">
-    <div class="col-md-10 ms-0">
+<div class="row justify-content-center ms-4">
+    <div class="col-md-10 mb-2">
         <form action="{{ route('config.store') }}" method="POST">
             @csrf
-            <div class="input-group mt-3 mb-4">
+            <div class="input-group mb-4">
                 <input type="text" 
                     class="form-control border border-success me-5  ms-3 rounded" 
                     style="height: 50px;" 
@@ -35,8 +36,8 @@
             </div>
 
             <div class="input-group mt-3 mb-4">
-                <button class="form-control border border-success me-5 ms-3 rounded text-white"
-                    style="background-color: #28a745; height: 50px;" 
+                <button class="h4 form-control border border-success me-5 ms-3 rounded text-white"
+                    style="background-color: #28a745; height: 60px; font-size: 24px;" 
                     type="submit" >Guardar
                 </button>  
             </div>

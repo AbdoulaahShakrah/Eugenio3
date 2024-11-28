@@ -1,9 +1,4 @@
 <?php
-
-use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\MainController;
-use Illuminate\Support\Facades\Route;
-
 //use App\Http\Controllers\ConfiguracaoController;
 //use App\Http\Controllers\HomeController;
 //use App\Http\Controllers\IniciarDesafio;
@@ -12,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Controllers\SessaoController;
 //use App\Http\Controllers\DesafioController;
 //use App\Http\Controllers\ClassificacaoAtualController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SessionController;
@@ -42,12 +41,14 @@ Route::post('v3/sessions/sessionPlayers/{id}', [PlayerController::class, 'store'
 Route::patch('v3/sessions/sessionsPlayers/edit', [PlayerController::class, 'edit'])->name('player.edit');
 Route::delete('v3/sessions/sessionPlayers/{id1}/players/{id2}', [PlayerController::class, 'destroy'])->name('player.destroy');
 
-Route::get('/chooseSessionTest', [ChallengeController::class, 'chooseSession'])->name('challenge.start.session');
+Route::get('chooseSessionTest', [ChallengeController::class, 'chooseSession'])->name('challenge.start.session');
 Route::get('chooseSessionTest/{session_id}', [ChallengeController::class, 'choosePlayer'])->name('challenge.start.player');
 Route::get('chooseSessionTest/{session_id}/{player_id}', [ChallengeController::class, 'chooseConfig'])->name('challenge.start.config');
 Route::get('chooseSessionTest/{session_id}/{player_id}/{config_id}', [ChallengeController::class, 'confirmSettings'])->name('challenge.start.confirm');
-Route::get('/desafio/{player_id}/{config_id}', [ChallengeController::class, 'playGame'])->name(name: 'challenge');
-Route::get('/classificacao-config', [ChallengeController::class, 'showResult'])->name('classificacao-config');
+Route::get('challenge/{session_id}/{player_id}/{config_id}', [ChallengeController::class, 'playGame'])->name('challenge');
+Route::get('challenge/result', [ChallengeController::class, 'showResult'])->name('challenge.result');
+
+Route::get('final-results', [ClassificationController::class, 'index'])->name('final-results');
 
 /*
 |--------------------------------------------------------------------------

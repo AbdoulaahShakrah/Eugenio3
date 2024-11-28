@@ -5,7 +5,6 @@
 @section('instruction', 'Escolha a sessão que deseja gerir')
 @section('return', route('home'))
 
-
 @section('content')
 
 @if (session('success'))
@@ -33,7 +32,6 @@
         <div class="d-flex align-items-center">    
             <form action="{{ route('session.update') }}" method="POST" class="d-flex flex-grow-1 flex-row align-items-center">
                 @method('patch')
-
                 <input type="hidden" name="id" value="{{$session->session_id}}">
 
                 <div class="flex-grow-1 align-items-center me-3">
@@ -43,13 +41,10 @@
                     <input type="text" name="name" id="writeName{{$session->session_id}}" class="form-control p-2 py-3 w-100 border border-success rounded text-center d-none" placeholder="Nome" value="{{$session->session_name}}">
                 </div>
 
-
-
                 <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary rounded-circle me-1">
                     <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                 </button>
                 
-            
                 <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success rounded-circle me-1 d-none">
                     <i class="fas fa-check"></i>
                 </button>
@@ -62,7 +57,6 @@
                     document.getElementById("buttonEdit{{$session->session_id}}").classList.add('d-none');
                     document.getElementById("sessionName{{$session->session_id}}").classList.add('d-none');
                     document.getElementById("writeName{{$session->session_id}}").classList.remove('d-none');
-
                 });
             </script>
             
@@ -80,9 +74,9 @@
     <div class="col-md-10 mb-0">
         <form action="{{route('session.store')}}" method="POST">
             @csrf
-            <div class="input-group mt-3 mb-5 d-flex flex-row justify-content-center align-items-center">
-                <input type="text" class="form-control p-2 py-3 flex-grow-1 border border-success rounded text-center me-5" name="session_name" placeholder="Nome da sessão" required>
-                <button class="btn btn-success p-3 rounded-circle" type="submit">
+            <div class="input-group mt-3 mb-5">
+                <input type="text" class="form-control border border-success me-4 ms-0 rounded" name="session_name" placeholder="Nome da sessão" required>
+                <button class="btn btn-success p-3 rounded-circle me-4" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>
             </div>

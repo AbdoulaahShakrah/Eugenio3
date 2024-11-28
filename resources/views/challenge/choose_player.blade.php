@@ -3,12 +3,12 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('return', route('home'))
-@section('instruction', 'Configuração de testes')
+@section('instruction', 'Selecione o Jogador')
 
 
 @section('content')
 
-<div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 my-5">
+<div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 mb-4">
     <h5><strong>Progesso:</strong></h5>
     <progress id="file" value="25" max="100" class="flex-grow-1 py-4"> 0% </progress>
     <script>

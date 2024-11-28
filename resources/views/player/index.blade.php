@@ -4,6 +4,7 @@
 @section('button', 'Voltar')
 @section('instruction', 'Lista de jogadores')
 @section('return', route('sessions.index'))
+
 @section('content')
 
 @if (session('success'))
@@ -26,7 +27,6 @@
 @endif
 
 @if (session('editSucess'))
-
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" 
         style="position: fixed; top: 15px; left: 75%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 80%;">
         <i class="fas fa-check-circle me-2"></i>
@@ -43,7 +43,6 @@
             }
         }, 5000); // 5000 ms = 5 segundos
     </script>
-
 @endif
 
 <div class="row justify-content-center ms-5">
@@ -78,7 +77,6 @@
                             document.getElementById("buttonEdit{{$player->player_id}}").classList.add('d-none');
                             document.getElementById("playerName{{$player->player_id}}").classList.add('d-none');
                             document.getElementById("writeName{{$player->player_id}}").classList.remove('d-none');
-
                         });
                     </script>
                 </form>
@@ -97,9 +95,9 @@
     <div class="col-md-10 mb-0">
         <form action="{{route('player.store', ['id' => request()->route('id')] )}}" method="POST">
             @csrf
-            <div class="input-group mt-3 mb-5 d-flex flex-row justify-content-center align-items-center">
-                <input type="text" class="form-control p-2 py-3 flex-grow-1 border border-success rounded text-center me-5" name="player_name" placeholder="Nome do jogador" required>
-                <button class="btn btn-success p-3 rounded-circle" type="submit">
+            <div class="input-group mt-3 mb-5">
+                <input type="text" class="form-control border border-success me-4 ms-0 rounded" name="player_name" placeholder="Nome do jogador" required>
+                <button class="btn btn-success p-3 rounded-circle me-4" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>
             </div>

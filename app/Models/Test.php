@@ -10,10 +10,13 @@ class Test extends Model
     use HasFactory;
 
     protected $table = 'tests';
-
     protected $primaryKey = 'test_id';
-
-    protected $fillable = ['player_id', 'configuration_id', 'wpm', 'test_error', 'test_correct', 'test_time', 'final_score' , 'created_at'];
+    protected $fillable = ['session_id', 'player_id', 'configuration_id', 'wpm', 'test_error', 'test_correct', 'test_time', 'final_score' , 'created_at'];
+    
+    public function session()
+    {
+        return $this->belongsTo(Session::class, 'session_id', 'session_id'); 
+    }
 
     public function player()
     {

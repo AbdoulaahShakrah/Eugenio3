@@ -7,7 +7,6 @@
     <title>@yield('title', 'App Eugénio')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 </head>
 
 <body class="bg-light">
@@ -19,8 +18,8 @@
             </div>
         </div>
 
-        <h1 class="ms-3 fs-4 mb-0 text-center flex-grow-1 text-dark ">@yield('header', 'Circuito de Testes Eugénio')</h1>
-        @if ( Request::route()->getName() != 'home' )
+        <h1 class="ms-3 fs-4 mb-0 ms-5 text-center flex-grow-1 text-dark ">@yield('header', 'Circuito de Testes Eugénio')</h1>
+        @if ( Request::route()->getName() != '' )
             <a href="@yield('return')">
                 <button class="btn btn-success rounded-pill px-4" onclick="goBack()">@yield('button', 'Voltar')</button>
             </a>

@@ -19,6 +19,9 @@ return new class extends Migration
             //TODO coluna wpm deve ser integer ???
             $table->id('test_id');
 
+            $table->unsignedBigInteger('session_id');
+            $table->foreign('session_id')->references('session_id')->on('sessions')->onDelete('cascade');
+
             $table->unsignedBigInteger('player_id');
             $table->foreign('player_id')->references('player_id')->on('players')->onDelete('cascade');
 
