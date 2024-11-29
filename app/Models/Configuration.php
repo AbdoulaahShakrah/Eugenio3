@@ -19,4 +19,9 @@ class Configuration extends Model
                             'created_at',
                             'updated_at'
                         ];
+    public function sessionConfigurations(){
+        return $this->hasMany(SessionConfiguration::class, 'configuration_id', 'configuration_id');
+    }
 }
+
+    

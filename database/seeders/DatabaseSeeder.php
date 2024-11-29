@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigurationSeeder::class);
         $this->call(PlayerSeeder::class);
         $this->call(TestSeeder::class);
+        $this->call(SessionConfigurationSeeder::class);
     }
 }

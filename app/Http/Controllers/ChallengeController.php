@@ -11,26 +11,47 @@ use Illuminate\Support\Facades\Date;
 
 class ChallengeController extends Controller
 {
-    public function chooseSession(){
-        return view('challenge.choose_session', ['sessions' => Session::orderBy('created_at', 'desc')->limit(5)->get()]);
+
+    public function index($session_id){
+        $configs = Configuration::with('sessionConfigurations')
+        ->whereHas('sessionConfigurations', function ($query) use ($session_id) {
+            $query->where('session_id', $session_id);
+        })
+        ->get();
+
+        $players = Player::where('session_id', $session_id)->get();
+        $session = Session::find($session_id);
+        return view('challenge.select_settings', ['configs' => $configs, 'players' =>  $players, 'session' => $session]);
+
     }
 
-    public function choosePlayer($session_id){
-        return view('challenge.choose_player', ['players' => Player::where('session_id', $session_id)->get()]);
+    public function checkSessionPassword(Request $request){
+        $session = Session::find($request->input('session_id'));
+
+        if( $session->session_password != $request->input('session_password')){
+            return redirect()->back()->with('erro', 'password incorreta.');
+        }
+
+        //TODO colocar na session que estou logado em sessão especifica (forma mais simples de autenticar).
+        //session('session', session_id)
+        
+        return redirect()->route('challenge.start', ['session_id' => $session->session_id]);
     }
 
-    public function chooseConfig($session_id, $player_id){
-        return view('challenge.choose_config', ['configs' => Configuration::all(), 'session_id' => $session_id, 'player_id' => $player_id]);
+    public function validateSettings(Request $request){
+
+        //TODO validar request
+        // o melhor seria criptograr os ids dentro da view e decriptografar aqui.
+        $player_id = $request->input('player_id');
+        $configuration_id = $request->input('config_id');
+        $session_id = $request->input('session_id');
+
+        return redirect()->route('challenge', ['player_id' => $player_id, 'config_id' => $configuration_id, 'session_id' => $session_id]);
     }
 
-    public function confirmSettings($session_id, $player_id, $config_id){
-        return view('challenge.confirm_settings', ['session' => Session::find($session_id), 'player' => Player::find($player_id), 'config' => Configuration::find($config_id)]);
-    }
+
 
     function playGame($session_id, $player_id, $config_id){
-        if( Test::where('player_id', $player_id)->where('configuration_id', $config_id)->first() != null ){
-            return redirect()->back()->with('error', 'Não é possível realizar o mesmo teste mais do que uma vez!');
-        }
         $configuracao = Configuration::find($config_id);
         $session = Session::find($session_id);
         $jogador = Player::find($player_id);
@@ -52,31 +73,40 @@ class ChallengeController extends Controller
         $incorrectWords = $request->input('incorrectWords');
         $timePassed = $request->input('timePassed');
         $pontuacaoFinal = $request->input('pontuacaoFinal');
-        $PK_Configuracao = $request->input('configuracao');
-        $PK_Jogador = $request->input('jogador');
+        $config_id = $request->input('configuracao');
+        $player_id = $request->input('jogador');
         $PK_Session = $request->input('session');
         $expectedTextWithStyles = $request->input('expectedTextWithStyles');
 
-        $classificacao = new Test(
-            [
-                'session_id' => $PK_Session,
-                'player_id' => $PK_Jogador,
-                'configuration_id' => $PK_Configuracao,
-                'wpm' => $wpm,
-                'test_error' => $incorrectWords,
-                'test_correct' => $correctWords,
-                'test_time' => $timePassed,
-                'final_score' => $pontuacaoFinal,
-                'created_at' => Date('Y-m-d')
-            ]
-        );
-        $classificacao->save();
+        if( Test::where('player_id', $player_id)->where('configuration_id', $config_id)->first() != null ){
+            //TODO Update caso pontuação final seja menor do que nova
+            $classificacao = Test::where('player_id', $player_id)->where('configuration_id', $config_id)->first();
+        }else{
+            $classificacao = new Test(
+                [
+                    'session_id' => $PK_Session,
+                    'player_id' => $player_id,
+                    'configuration_id' => $config_id,
+                    'wpm' => $wpm,
+                    'test_error' => $incorrectWords,
+                    'test_correct' => $correctWords,
+                    'test_time' => $timePassed,
+                    'final_score' => $pontuacaoFinal,
+                    'created_at' => Date('Y-m-d')
+                ]
+            );
+            $classificacao->save();
+
+        }
+        
+
+        
 
         return view('challenge.result', [
             'classificacao' => $classificacao,
             'session' => Session::find($PK_Session),
-            'NomeJogador' => Player::find($PK_Jogador)->player_name,
-            'Configuracao' => Configuration::find($PK_Configuracao),
+            'player' => Player::find($player_id),
+            'Configuracao' => Configuration::find($config_id),
             'expectedTextWithStyles' => $expectedTextWithStyles,
         ]);
     }

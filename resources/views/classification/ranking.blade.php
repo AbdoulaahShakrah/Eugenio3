@@ -8,7 +8,7 @@
 @section('content')
 <div class="results-main-container">
     <h1 class="text-center mb-4">
-        {{ $lastSession->session_name }}
+        {{ $session->session_name }}
     </h1>
     <div class="table-container overflow-x-auto">
         <table class="results-table rounded-lg border-collapse border border-gray-400 w-full text-center">

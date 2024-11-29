@@ -93,6 +93,10 @@
     @endforeach
 
     <div class="col-md-10 mb-0">
+        {{ $players->links('pagination::bootstrap-4') }}
+    </div>
+
+    <div class="col-md-10 mb-0">
         <form action="{{route('player.store', ['id' => request()->route('id')] )}}" method="POST">
             @csrf
             <div class="input-group mt-3 mb-5">

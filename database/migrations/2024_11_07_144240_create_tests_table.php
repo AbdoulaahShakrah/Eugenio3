@@ -14,9 +14,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tests', function (Blueprint $table) {
-
-            //TODO chave composta ???
-            //TODO coluna wpm deve ser integer ???
             $table->id('test_id');
 
             $table->unsignedBigInteger('session_id');

@@ -2,7 +2,7 @@
 @section('title', 'Circuito Eugénio')
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
-@section('instruction', 'Escolha a sessão que deseja gerir')
+@section('instruction', 'Gestão de Sessões')
 @section('return', route('home'))
 
 @section('content')
@@ -29,23 +29,34 @@
 <div class="row justify-content-center ms-5">
     @foreach($sessions as $session)
     <div class="col-md-10 mb-2">
-        <div class="d-flex align-items-center">    
+        <div class="d-flex align-items-center">
+        <a class="me-3" href="{{route('final-results', ['session_id' => $session->session_id])}}">
+            <button class="btn btn-warning rounded-circle me-1 btn-lg">
+                <i class="fa fa-trophy"></i>
+            </button>
+        </a>
             <form action="{{ route('session.update') }}" method="POST" class="d-flex flex-grow-1 flex-row align-items-center">
                 @method('patch')
                 <input type="hidden" name="id" value="{{$session->session_id}}">
+                
+                <div id="sessionName{{$session->session_id}}" class="d-flex flex-grow-1 align-items-center me-2 rounded border border-success" style="background-color: #28a745; min-height: 65px;">
+                    <div class="d-flex flex-column justify-content-center flex-grow-1 p-2">
+                        <h4 class="text-white mb-0"><strong>{{$session->session_name}}</strong></h4>
+                        <p class="text-white fs-6 fw-lighter mb-0">Password: {{$session->session_password}}</p>
+                    </div>
 
-                <div class="flex-grow-1 align-items-center me-3">
-                    <a id="sessionName{{$session->session_id}}" href="/v3/sessions/sessionPlayers/{{$session->session_id}}" class="text-decoration-none">
-                        <h5 class="p-2 py-3 mb-0 w-100 rounded border border-success text-white text-center" style="background-color: #28a745;">{{$session->session_name}} </h5>
-                    </a>
-                    <input type="text" name="name" id="writeName{{$session->session_id}}" class="form-control p-2 py-3 w-100 border border-success rounded text-center d-none" placeholder="Nome" value="{{$session->session_name}}">
+                    <a class="px-3 text-white small mb-0" href="/v3/sessions/sessionPlayers/{{$session->session_id}}">Jogadores</a>
+                    <a class="px-3 text-white small mb-0" href="{{ route('sessionconfig.index', ['session_id' => $session->session_id ]) }}">Configurações</a>
+
                 </div>
 
-                <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary rounded-circle me-1">
+                <input type="text" name="name" id="writeName{{$session->session_id}}" class="form-control flex-grow-1 me-2 p-2 py-3  border border-success rounded text-center d-none" style="height: 50px;" placeholder="Nome" value="{{$session->session_name}}">
+
+                <button id="buttonEdit{{$session->session_id}}" class="btn btn-outline-secondary btn-lg rounded-circle me-2">
                     <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                 </button>
                 
-                <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success rounded-circle me-1 d-none">
+                <button id="buttonConfirmEdit{{$session->session_id}}"  class="btn btn-outline-success btn-lg rounded-circle me-2 d-none">
                     <i class="fas fa-check"></i>
                 </button>
             </form>
@@ -63,13 +74,18 @@
             <form action="{{ route('session.destroy', ['id' => $session->session_id]) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar esta sessão?')" class="d-flex justify-content-center align-items-center ms-2">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-outline-danger rounded-circle" type="submit">
+                <button class="btn btn-outline-danger btn-lg rounded-circle" type="submit">
                     <i class="fas fa-trash-alt" aria-hidden="true"></i>
                 </button>
             </form>
         </div>
     </div>
     @endforeach
+
+    <div class="col-md-10 mb-0" style="margin-left: 150px">
+        {{ $sessions->links('pagination::bootstrap-4') }}
+    </div>
+    
 
     <div class="col-md-10 mb-0">
         <form action="{{route('session.store')}}" method="POST">

@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //TODO coluna configuration time deve ser integer?
         Schema::create('configurations', function (Blueprint $table) {
             $table->id('configuration_id');
             $table->string('configuration_title')->unique();

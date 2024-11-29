@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SessionController extends Controller
 {
     public function index(){
-        $sessions = Session::all();
+        $sessions = Session::orderBy('created_at', 'desc')->paginate(5);
         return view('session.index', compact('sessions'));
     }
 

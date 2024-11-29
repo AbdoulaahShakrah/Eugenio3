@@ -18,4 +18,8 @@ class Session extends Model
     public function players(): HasMany {
         return $this->hasMany(Player::class, 'session_id', 'session_id');
     }
+
+    public function sessionConfigurations(){
+        return $this->hasMany(SessionConfiguration::class, 'session_id', 'session_id');
+    }
 }

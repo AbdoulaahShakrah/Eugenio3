@@ -9,7 +9,7 @@ class PlayerController extends Controller
 {
     public function sessionPlayers($id)
     {
-        $players = Player::where('session_id', $id)->get();
+        $players = Player::where('session_id', $id)->orderBy('created_at', 'desc')->paginate(5);;
         return view('player.index', compact('players'));
     }
 

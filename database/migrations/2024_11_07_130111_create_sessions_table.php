@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->id('session_id');
             $table->string('session_name')->unique();
+            $table->string('session_password');
             $table->timestamps();
         });
     }
