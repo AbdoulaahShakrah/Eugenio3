@@ -3,7 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Gestão de Configurações da Sessão ' . $session->session_name)
-@section('return', route('home'))
+@section('return', route('sessions.index'))
 
 @section('content')
 

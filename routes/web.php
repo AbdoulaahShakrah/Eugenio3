@@ -47,7 +47,7 @@ Route::get('/v3/sessions/{session_id}/configs', [SessionConfigurationController:
 Route::post('/v3/sessions/{session_id}/update', [SessionConfigurationController::class, 'update'])->name('sessionconfiguration.update');
 
 Route::post('checkSessionPassword', [ChallengeController::class, 'checkSessionPassword'])->name('challenge.check_session_password');
-Route::get('/chooseTest/{session_id}', [ChallengeController::class, 'index'])->name('challenge.start');
+Route::get('/challange/chooseTest/{session_id}', [ChallengeController::class, 'index'])->name('challenge.start');
 Route::post('/challange/validateSettings', [ChallengeController::class, 'validateSettings'])->name('challenge.validate');
 Route::get('challenge/{session_id}/{player_id}/{config_id}', [ChallengeController::class, 'playGame'])->name('challenge');
 Route::get('challenge/result', [ChallengeController::class, 'showResult'])->name('challenge.result');

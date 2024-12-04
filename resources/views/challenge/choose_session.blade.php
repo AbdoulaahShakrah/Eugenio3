@@ -9,7 +9,7 @@
 @section('content')
 
 <div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 mb-4">
-    <h5><strong>Progesso:</strong></h5>
+   <!-- <h5><strong>Progesso:</strong></h5>
     <progress id="file" value="1" max="100" class="flex-grow-1 py-4"> 0% </progress>
 
     <script>
@@ -28,7 +28,7 @@
         // Start the animation
         animateProgress();
     </script>
-</div>
+</div>-->
 
 <div class="row justify-content-center ms-5">
     @foreach($sessions as $session)

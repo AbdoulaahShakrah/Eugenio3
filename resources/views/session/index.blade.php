@@ -3,7 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Gestão de Sessões')
-@section('return', route('home'))
+@section('return', route('admin'))
 
 @section('content')
 
@@ -92,6 +92,7 @@
             @csrf
             <div class="input-group mt-3 mb-5">
                 <input type="text" class="form-control border border-success me-4 ms-0 rounded" name="session_name" placeholder="Nome da sessão" required>
+                
                 <button class="btn btn-success p-3 rounded-circle me-4" type="submit">
                     <i class="fas fa-plus" aria-hidden="true" style="width: 20px; height: 20px;"></i>
                 </button>

@@ -3,7 +3,7 @@
 @section('header', 'Circuito de Testes Eugénio')
 @section('button', 'Voltar')
 @section('instruction', 'Escolha a configuração que deseja gerir')
-@section('return', route('home'))
+@section('return', route('admin'))
 
 @section('content')
 

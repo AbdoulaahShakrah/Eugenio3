@@ -15,7 +15,6 @@
         <strong>Erro!</strong> {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
-
     <script>
         setTimeout(function() {
             var alert = document.getElementById('successAlert');
@@ -28,7 +27,7 @@
 @endif
 
 <div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 mb-4">
-    <h5><strong>Progesso:</strong></h5>
+<!-- <h5><strong>Progesso:</strong></h5>
     <progress id="file" value="25" max="100" class="flex-grow-1 py-4"> 0% </progress>
     <script>
         const progressBar = document.getElementById('file');
@@ -46,7 +45,7 @@
         animateProgress();
     </script>
 </div>
-
+-->
 <h2>Dados do Teste:</h2>
 <h3 class="h5 p-2 py-4 mb-3 w-100 rounded border border-success text-center"><strong>Nome de Sessão: </strong>{{$session->session_name}}</h3>
 <h3 class="h5 p-2 py-4 mb-3 w-100 rounded border border-success text-center"><strong>Nome de Jogador: </strong>{{$player->player_name}}</h3>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Player;
 use App\Models\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class SessionController extends Controller
 {
@@ -15,7 +17,9 @@ class SessionController extends Controller
 
     public function store(Request $request){
         $session_name = $request->input('session_name');
-        Session::create(['session_name' => $session_name]);
+        $session_password = Str::replace('.', '', Str::replace(' ', '', fake()->text(10)));
+
+        Session::create(['session_name' => $session_name, 'session_password' => $session_password]);
         return redirect()->back()->with('success', 'Sessão adicionada com sucesso!');
     }
 

@@ -11,19 +11,20 @@ use Illuminate\Support\Facades\Date;
 
 class ChallengeController extends Controller
 {
-
-    public function index($session_id){
+    public function index($session_id, Request $request){
         $configs = Configuration::with('sessionConfigurations')
-        ->whereHas('sessionConfigurations', function ($query) use ($session_id) {
-            $query->where('session_id', $session_id);
-        })
-        ->get();
-
+            ->whereHas('sessionConfigurations', function ($query) use ($session_id) {
+                $query->where('session_id', $session_id);
+            })
+            ->get();
+    
         $players = Player::where('session_id', $session_id)->get();
         $session = Session::find($session_id);
+            
+        // Caso contrário, não passamos a configuração
         return view('challenge.select_settings', ['configs' => $configs, 'players' =>  $players, 'session' => $session]);
-
     }
+    
 
     public function checkSessionPassword(Request $request){
         $session = Session::find($request->input('session_id'));

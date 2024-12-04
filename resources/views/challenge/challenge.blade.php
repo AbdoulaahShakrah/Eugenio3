@@ -16,7 +16,7 @@
             <a href="/">
                 <button type="button"
                         class="mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full">
-                    Ir para o Menu Inicial
+                    Ir para o Menu Inicia   l
                 </button>
             </a>
         </div>

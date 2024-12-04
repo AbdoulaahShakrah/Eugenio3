@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Circuito Eugénio')
 @section('header', 'Circuito de teste Eugénio')
-@section('button', 'Voltar')
+@section('button', 'Sair')
 @section('instruction', 'Selecione a opção desejada')
 @section('return', route('home'))
 
@@ -11,7 +11,7 @@
         @csrf
         <button class="btn btn-success col-md-11 mb-4 py-3 ms-5" style="background-color: #28a745; font-size: 24px;" type="submit" name="action" value="sessions">Gerir Sessões</button>
         <button class="btn btn-success col-md-11 mb-4 py-3 ms-5" style="background-color: #28a745; font-size: 24px;" type="submit" name="action" value="configs">Gerir Configurações</button>
-        <button class="btn btn-success col-md-11 mb-4 py-3 ms-5" style="background-color: #28a745; font-size: 24px;" type="submit" name="action" value="results">Visualizar Resultados</button>
+        <!--<button class="btn btn-success col-md-11 mb-4 py-3 ms-5" style="background-color: #28a745; font-size: 24px;" type="submit" name="action" value="results">Visualizar Resultados</button>-->
     </form>
 </div>
 @endsection

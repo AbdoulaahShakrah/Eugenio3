@@ -29,12 +29,12 @@
         @endif
         
         <div id="formAdmin" class="d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 d-none" style="background: rgba(220, 220, 220, 0.5); backdrop-filter: blur(5px);">
-            <form action="{{route('admin.validate')}}" method="post" class="d-flex flex-column justify-content-evenly align-items-center w-50 h-25 bg-secondary text-white text-center d-flex justify-content-center align-items-center">
+            <form action="{{route('admin.validate')}}" method="post" class="d-flex flex-column justify-content-evenly align-items-center w-50 h-25 bg-secondary bg-gradient text-white text-center d-flex justify-content-center align-items-center">
                 <h5>Zona Reservada - Senha de Admin</h5>
                 <input type="password" name="admin_password" class="form-control p-2 py-3 w-75 border border-success rounded" placeholder="Password">
                 <div class="d-flex w-75 justify-content-evenly">
-                    <button type="submit" class="h5 p-2 py-4 w-75 rounded border border-success text-white text-center">Confirmar</button>
-                    <button class="h5 p-2 py-4 w-75 rounded border bg-warning text-white text-center">Cancelar</button>
+                <button type="submit" class="h5 p-2 py-4 w-75 rounded border border-success text-white text-center bg-success">Confirmar</button>
+                <button class="h5 p-2 py-4 w-75 rounded border bg-danger text-white text-center">Cancelar</button>
                 </div>
             </form>
         </div>
