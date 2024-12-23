@@ -18,9 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('session_id');
             $table->foreign('session_id')->references('session_id')->on('sessions')->onDelete('cascade');
             $table->timestamps();
+            $table->unique(['player_name', 'session_id']);
         });
     }
 
+    
     /**
      * Reverse the migrations.
      */

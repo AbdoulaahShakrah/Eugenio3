@@ -16,7 +16,11 @@ class PlayerController extends Controller
     public function store($id, Request $request)
     {
         $player_name = $request->input('player_name');
-        Player::create(['player_name' => $player_name, 'session_id' => $id]);
+        if (Player::where('player_name', $player_name)->where('session_id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Player already exists in this session.');
+        }
+            Player::create(['player_name' => $player_name, 'session_id' => $id]);
+        
         return redirect()->route('player.sessionPlayers', ['id' => $id])
             ->with('success', 'Jogador adicionado com sucesso!');
     }
@@ -28,8 +32,12 @@ class PlayerController extends Controller
     }
 
     public function edit(Request $request){
-
-        Player::find($request->input('id'))->update(['player_name' => $request->input('name')]);
+        $player = Player::find($request->input('id'));
+        if (Player::where('player_name', $request->input('name'))->where('session_id', $player->session_id)->exists()) {
+            return redirect()->back()->with('error', 'Player already exists in this session.');
+        }
+        $player->update(['player_name' => $request->input('name')]);
+        
         return redirect()->route('player.sessionPlayers', ['id' => $request->input(key: 'session_id')])->with('editSucess', 'Nome do jogador editado com sucesso');
     }
 }

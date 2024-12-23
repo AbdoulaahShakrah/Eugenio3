@@ -5,43 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Desafio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@1.8.3/dist/tailwind.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-
 </head>
-<body>
+
+<body class="bg-light">
+
     <div class="main-container-desafio">
-        <div class="main-menu-btn">
-            <a href="/">
-                <button type="button"
-                        class="mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full">
-                    Ir para o Menu Inicia   l
-                </button>
-            </a>
-        </div>
 
-        <div class="flex flex-col items-center h-screen w-full">
-            <div class="h1-title-container">
-                <h1 class="text-5xl font-bold text-blue-700 text-center">
-                    {{ $configuracao->configuration_title }} | {{ $jogador->player_name }}</h1>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4">
+
+            <!-- Título -->
+            <div class="h1-title-container mb-4">
+                <h1 class="display-4 text-primary text-center font-weight-bold">
+                    {{ $configuracao->configuration_title }} | {{ $jogador->player_name }}
+                </h1>
             </div>
-            <div class="w-2/3 mt-10">
-                <p id="time" class="text-center text-2xl text-gray-800 font-medium mt-1"><span
-                    class="rounded-full border-4 border-black p-4 border-dashed border-gray-800">{{ $tempo_config }}</span>
+
+            <!-- Contador de Tempo -->
+            <div class="w-75 mb-4">
+                <p id="time" class="text-center text-xl text-dark font-weight-bold mt-3">
+                    <span class="rounded-circle border-4 border-dark p-4">{{ $tempo_config }}</span>
                 </p>
-                <p id="wpm" class="text-center text-4xl text-gray-800 font-medium mt-5"><span></span></p>
-                <p id="inputValueDivided" class="text-center text-4xl text-gray-800 font-medium mt-5"><span></span></p>
-
-                <p id="expected-text" class="text-gray-800 font-bold text-xl mt-10">{{ $configuracao->configuration_text }}</p>
-                <textarea placeholder="Assim que clicar na àrea de texto, o tempo começará a ser descontado!"
-                    id="input-text" class="w-full h-64 p-5 border border-gray-400 mt-5 text-2xl"
-                    id="texto"></textarea>
             </div>
 
-            <button class="mt-4 bg-green-500 hover:bg-green-600
-                text-white font-bold py-2 px-4 rounded-full"
-                id="terminar">
+            <!-- WPM e Texto do Desafio -->
+            <div class="w-75 mb-4 text-center">
+                <p id="wpm" class="text-4xl text-dark font-weight-bold mt-5"></p>
+                <p id="inputValueDivided" class="text-4xl text-dark font-weight-bold mt-5"></p>
+                <p id="expected-text" class="text-dark font-weight-bold fs-3 mt-4">{{ $configuracao->configuration_text }}</p>
+                </div>
+
+            <!-- Área de Texto para Digitação -->
+            <textarea placeholder="Assim que clicar na área de texto, o tempo começará a ser descontado!"
+                id="input-text" class="form-control w-75 mx-auto h-64 p-3 text-xl border border-primary mt-4"></textarea>
+
+            <!-- Botão para Terminar o Desafio -->
+            <button class="btn btn-success btn-lg mt-4 w-75" id="terminar">
                 Terminar Desafio
             </button>
         </div>
@@ -129,7 +130,7 @@
                 let minutes = Math.floor((totalSeconds - hours * 3600) / 60); // converte para minutos
                 let seconds = totalSeconds - (hours * 3600 + minutes * 60); // segundos restantes
                 // atualiza a exibição do tempo com os novos valores
-                timeDisplay.innerHTML = `<span class="rounded-full border-4 border-black p-4 border-dashed border-gray-800">${("0" + minutes).slice(-2)}:${("0" + seconds).slice(-2)}</span>`;
+                timeDisplay.innerHTML = `<span class="rounded-circle border-4 border-dark p-4">${("0" + minutes).slice(-2)}:${("0" + seconds).slice(-2)}</span>`;
                 if (totalSeconds === 0) {
                     clearInterval(intervalId); // para a contagem quando chegar a zero
                     intervalId = null;
@@ -160,5 +161,8 @@
             return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

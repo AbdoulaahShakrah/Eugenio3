@@ -7,46 +7,40 @@
 @section('instruction', 'Resultado do Teste')
 
 @section('content')
-<div class="results-main-container">
-    <h1 class="text-center mb-4">
+<div class="results-main-container container mt-5">
+    <h1 class="text-center mb-4 text-primary">
         Resultado do Teste
     </h1>
-    <div class="table-container overflow-x-auto">
-        <table class="results-table rounded-lg border-collapse border border-gray-400 w-full text-center">
-            <thead class="bg-gray-200 text-lg">
+
+    <!-- Tabela Responsiva -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover table-sm">
+            <thead class="thead-light">
                 <tr>
-                    <th class="border border-gray-400 px-4 py-2">Configuração</th>
-                    <th class="border border-gray-400 px-4 py-2">Jogador / Sessão</th>
-                    <th class="border border-gray-400 px-4 py-2">Palavras por minuto</th>
-                    <th class="border border-gray-400 px-4 py-2">Palavras erradas</th>
-                    <th class="border border-gray-400 px-4 py-2">Palavras certas</th>
-                    <th class="border border-gray-400 px-4 py-2">Tempo</th>
-                    <th class="border border-gray-400 px-4 py-2">Pontuação final</th>
+                    <th class="text-center">Palavras por minuto</th>
+                    <th class="text-center">Palavras erradas</th>
+                    <th class="text-center">Palavras certas</th>
+                    <th class="text-center">Tempo</th>
+                    <th class="text-center">Pontuação final</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="hover:bg-gray-100">
-                    <td class="border border-gray-400 px-4 py-2">{{ $Configuracao->configuration_title }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $player->player_name }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $classificacao->wpm }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $classificacao->test_error }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $classificacao->test_correct }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $classificacao->test_time }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ $classificacao->final_score }}</td>
+                <tr>
+                    <td class="text-center">{{ $classificacao->wpm }}</td>
+                    <td class="text-center">{{ $classificacao->test_error }}</td>
+                    <td class="text-center">{{ $classificacao->test_correct }}</td>
+                    <td class="text-center">{{ $classificacao->test_time }}</td>
+                    <td class="text-center">{{ $classificacao->final_score }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
+    <!-- Botão Voltar -->
     <div class="text-center mt-4">
         <a href="{{ route('challenge.start', ['session_id' => $player->session->session_id]) }}">
-            <button class="h5 py-3 mb-0 mb-5 w-100 rounded border border-success text-white text-center" style="background-color: #28a745;">Voltar</button>
-        </a>    
+            <button class="btn btn-success btn-lg w-100 rounded-pill" style="background-color: #28a745;">Voltar</button>
+        </a>
     </div>
-
-    <!--<form action="{{ route('challenge.start', ['session_id' => $player->session->session_id]) }}" method="GET">
-        @csrf
-        <input type="hidden" name="configuration_id" value="{{ $Configuracao->configuration_id }}">
-    </form>-->
 </div>
 @endsection

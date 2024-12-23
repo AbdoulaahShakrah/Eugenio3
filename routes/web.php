@@ -1,12 +1,5 @@
 <?php
-//use App\Http\Controllers\ConfiguracaoController;
-//use App\Http\Controllers\HomeController;
-//use App\Http\Controllers\IniciarDesafio;
-//use App\Http\Controllers\RealizarInscricoes;
-//use App\Http\Controllers\VerResultados;
-//use App\Http\Controllers\SessaoController;
-//use App\Http\Controllers\DesafioController;
-//use App\Http\Controllers\ClassificacaoAtualController;
+
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +8,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SessionConfigurationController;
 use App\Http\Controllers\SessionController;
-use App\Models\Configuration;
 
-// V3 2024-2025
 
 Route::redirect('/', 'v3');
 
@@ -53,32 +44,3 @@ Route::get('challenge/{session_id}/{player_id}/{config_id}', [ChallengeControlle
 Route::get('challenge/result', [ChallengeController::class, 'showResult'])->name('challenge.result');
 
 Route::get('final-results/{session_id}', [ClassificationController::class, 'index'])->name('final-results');
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*
-Route::get('/', [HomeController::class,'index']);
-Route::get('/realizar-inscricoes', [RealizarInscricoes::class, 'index'])->name('realizar-inscricoes');
-Route::get('/getSessions', [SessaoController::class, 'getAllSessions']);
-Route::get('/clearSession', [SessaoController::class, 'clearSession']);
-Route::get('/setSession', [SessaoController::class, 'setSession']);
-Route::post('/setConfig', [ConfiguracaoController::class, 'setConfig']);
-Route::post('/adicionarConfiguracao', [ConfiguracaoController::class, 'addConfig']);
-Route::get('/getAllConfigs', [ConfiguracaoController::class, 'getAllConfigs']);
-Route::get('/iniciar-desafio', [IniciarDesafio::class, 'index'])->name('iniciar-desafio');
-Route::get('/ver-resultados', [VerResultados::class, 'index'])->name('ver-resultados');
-Route::get('/sair', [HomeController::class, 'index'])->name('sair');
-Route::get('/desafio', [DesafioController::class, 'index'])->name('desafio');
-Route::post('/adicionarJogador', [RealizarInscricoes::class, 'adicionarJogador'])->name('adicionarJogador');
-Route::get('/criar-sessao', [SessaoController::class, 'criarSessao'])->name('criar-sessao');
-Route::get('/classificacao-config', [ClassificacaoAtualController::class, 'index'])->name('classificacao-config');
-*/

@@ -9,27 +9,7 @@
 @section('content')
 
 <div class="w-100 d-flex flex-row justify-content-center align-items-center gap-3 mb-4">
-   <!-- <h5><strong>Progesso:</strong></h5>
-    <progress id="file" value="1" max="100" class="flex-grow-1 py-4"> 0% </progress>
-
-    <script>
-        const progressBar = document.getElementById('file');
-        let progress = 1;
-
-        function animateProgress() {
-            if (progress < 25) {
-                progress++;
-                progressBar.value = progress;
-                progressBar.textContent = `${progress}%`; // Update the visible percentage (if supported)
-                setTimeout(animateProgress, 10); // Adjust the time (50ms) for desired speed
-            }
-        }
-
-        // Start the animation
-        animateProgress();
-    </script>
-</div>-->
-
+    
 <div class="row justify-content-center ms-5">
     @foreach($sessions as $session)
         <div class="col-md-10 mb-3">
@@ -47,4 +27,3 @@
 
 
 @endsection
-

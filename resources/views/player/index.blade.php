@@ -26,6 +26,27 @@
     </script>
 @endif
 
+
+@if (session('error'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" 
+        style="position: fixed; top: 15px; left: 75%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 80%;">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong>Erro!</strong> {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var alert = document.getElementById('successAlert');
+            if (alert) {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+            }
+        }, 5000); // 5000 ms = 5 segundos
+    </script>
+@endif
+
+
 @if (session('editSucess'))
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" 
         style="position: fixed; top: 15px; left: 75%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 80%;">

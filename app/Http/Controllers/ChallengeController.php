@@ -101,7 +101,7 @@ class ChallengeController extends Controller
         }
         
 
-        
+        session()->flash('config_id', $config_id);
 
         return view('challenge.result', [
             'classificacao' => $classificacao,
