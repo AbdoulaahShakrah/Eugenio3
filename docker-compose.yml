@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  laravel-docker:
+    container_name: eugenio-docker
+    build: .
+    volumes:
+      - ./eugenio/laravel-app:/var/www/html
+    ports:
+      - "9000:80"
+    depends_on:
+      - mysql_db
+
+  mysql_db:
+    image: mysql:latest
+    container_name: laravel-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: eugenio_docker
+    ports:
+      - "3306:3306"
+  
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "9001:80"
+    environment:
+      - PMA_ARBITARY=1
+
