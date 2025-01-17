@@ -11,35 +11,38 @@ use Illuminate\Support\Facades\Date;
 
 class ChallengeController extends Controller
 {
-    public function index($session_id, Request $request){
+    public function index($session_id, Request $request)
+    {
         $configs = Configuration::with('sessionConfigurations')
             ->whereHas('sessionConfigurations', function ($query) use ($session_id) {
                 $query->where('session_id', $session_id);
             })
             ->get();
-    
+
         $players = Player::where('session_id', $session_id)->get();
         $session = Session::find($session_id);
-            
+
         // Caso contrário, não passamos a configuração
         return view('challenge.select_settings', ['configs' => $configs, 'players' =>  $players, 'session' => $session]);
     }
-    
 
-    public function checkSessionPassword(Request $request){
+
+    public function checkSessionPassword(Request $request)
+    {
         $session = Session::find($request->input('session_id'));
 
-        if( $session->session_password != $request->input('session_password')){
+        if ($session->session_password != $request->input('session_password')) {
             return redirect()->back()->with('erro', 'password incorreta.');
         }
 
         //TODO colocar na session que estou logado em sessão especifica (forma mais simples de autenticar).
         //session('session', session_id)
-        
+
         return redirect()->route('challenge.start', ['session_id' => $session->session_id]);
     }
 
-    public function validateSettings(Request $request){
+    public function validateSettings(Request $request)
+    {
 
         //TODO validar request
         // o melhor seria criptograr os ids dentro da view e decriptografar aqui.
@@ -47,12 +50,22 @@ class ChallengeController extends Controller
         $configuration_id = $request->input('config_id');
         $session_id = $request->input('session_id');
 
-        return redirect()->route('challenge', ['player_id' => $player_id, 'config_id' => $configuration_id, 'session_id' => $session_id]);
+        $exist_player = Test::where('player_id', $player_id)
+        ->where('configuration_id', $configuration_id)
+        ->where('session_id', $session_id)->first();
+        if ($exist_player == null) {
+            return redirect()->route('challenge', ['player_id' => $player_id, 'config_id' => $configuration_id, 'session_id' => $session_id]);
+        }
+        else{
+            session()->flash('config_id', $configuration_id);
+            return redirect()->back()->with('player_config_error', 'Jogador selecionado participou nesta configuração, selecione outro jogador.');
+        }
     }
 
 
 
-    function playGame($session_id, $player_id, $config_id){
+    function playGame($session_id, $player_id, $config_id)
+    {
         $configuracao = Configuration::find($config_id);
         $session = Session::find($session_id);
         $jogador = Player::find($player_id);
@@ -79,24 +92,24 @@ class ChallengeController extends Controller
         $PK_Session = $request->input('session');
         $expectedTextWithStyles = $request->input('expectedTextWithStyles');
 
-      
-            $classificacao = new Test(
-                [
-                    'session_id' => $PK_Session,
-                    'player_id' => $player_id,
-                    'configuration_id' => $config_id,
-                    'wpm' => $wpm,
-                    'test_error' => $incorrectWords,
-                    'test_correct' => $correctWords,
-                    'test_time' => $timePassed,
-                    'final_score' => $pontuacaoFinal,
-                    'created_at' => Date('Y-m-d')
-                ]
-            );
-            $classificacao->save();
 
-        
-        
+        $classificacao = new Test(
+            [
+                'session_id' => $PK_Session,
+                'player_id' => $player_id,
+                'configuration_id' => $config_id,
+                'wpm' => $wpm,
+                'test_error' => $incorrectWords,
+                'test_correct' => $correctWords,
+                'test_time' => $timePassed,
+                'final_score' => $pontuacaoFinal,
+                'created_at' => Date('Y-m-d')
+            ]
+        );
+        $classificacao->save();
+
+
+
 
         session()->flash('config_id', $config_id);
 

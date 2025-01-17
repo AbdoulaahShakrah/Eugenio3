@@ -27,7 +27,8 @@ class ClassificationController extends Controller
             ->groupBy('players.player_name') // Agrupar por nome do jogador
             ->orderByDesc('avg_final_score') // Ordenar pela maior média de final_score
             ->get();
-
+            
         return view('classification.ranking', compact('rankings', 'session'));
     }
 }
+

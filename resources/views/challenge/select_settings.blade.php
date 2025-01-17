@@ -9,12 +9,32 @@
 
 @section('content')
 
+@if (session('player_config_error'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="player_config_error" 
+        style="position: fixed; top: 15px; left: 75%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 80%;">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong>Erro!</strong> {{ session('player_config_error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var alert = document.getElementById('player_config_error');
+            if (alert) {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+            }
+        }, 5000); // 5000 ms = 5 segundos
+    </script>
+@endif
+
+
 <div class="row justify-content-center">
     <form action="{{route('challenge.validate')}}" method="post" class="w-100">
         <input type="hidden" name="session_id" value="{{$session->session_id}}">
 
         <!-- Config Settings -->
-        <div id="configSettings" class="d-flex flex-column align-items-center w-100 border border-success p-4">
+        <div id="configSettings" class="d-flex flex-column align-items-center w-100 border border-success p-4 ">
             <h1>Escolha a configuração</h1>
             <hr class="w-75 border border-secondary mt-0 mb-5">
 
@@ -27,9 +47,7 @@
 
             <div class="w-75 d-flex justify-content-between mt-4">
                 <button id="configConfirm" class="btn btn-success flex-grow-1 me-2 py-3"
-                    @if(isset($configuration))
-                    disabled
-                    @endif>Confirmar</button>
+                    disabled>Confirmar</button>
             </div>
 
             <script>

@@ -51,19 +51,19 @@
         <a href="@yield('return')" id="back-link">
             <button id="back-btn" class="btn btn-info rounded-pill px-4" onclick="event.preventDefault(); 
                                                                                   document.getElementById('formAdmin').classList.remove('d-none');">
-                    @yield('button', 'Voltar')
+                @yield('button', 'Voltar')
             </button>
         </a>
+        @elseif (Request::route()->getName() == 'challenge.result' )
+        <!-- Não exibe botão para a rota 'challenge' -->
         @else
         <a href="@yield('return')" id="back-link">
             <button id="back-btn" class="btn btn-info rounded-pill px-4">@yield('button', 'Voltar')</button>
         </a>
 
         @endif
-
-
         <div id="formAdmin" class="d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 d-none"
-            style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px);">
+            style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); z-index: 2000;">
             <form action="{{route('admin.validate')}}" method="post"
                 class="d-flex flex-column justify-content-between align-items-center p-4 w-50 h-auto bg-white shadow-lg rounded">
                 <h5 class="mb-4 text-dark fw-bold">Área Restrita - Admin</h5>
@@ -82,7 +82,8 @@
             </form>
         </div>
 
-        
+
+
 
         <script>
             document.getElementById('admin').addEventListener('click', function() {
