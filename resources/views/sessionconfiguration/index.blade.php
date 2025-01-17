@@ -30,11 +30,13 @@
     <form action="{{ route('sessionconfiguration.update', ['session_id' => $session->session_id]) }}" method="POST" class="mb-5">
         @csrf
         <div class="table-responsive">
-            <table class="table table-bordered align-middle">
+            <table class="table">
                 <thead class="table-light">
                     <tr>
                         <th scope="col">Título da Configuração</th>
-                        <th scope="col" class="text-center">Selecionar</th>
+                        <th scope="col" class="text-center">
+                            <button type="button" id="selectAllBtn" class="btn btn-secondary btn-sm">Selecionar Todos</button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,5 +65,28 @@
         </div>
     </form>
 </div>
+
+<script>
+    // Função para alternar entre selecionar todos e desmarcar todos os checkboxes
+    document.getElementById('selectAllBtn').addEventListener('click', function() {
+        let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        let allChecked = true;
+
+        // Verificar se todos os checkboxes estão selecionados
+        checkboxes.forEach(function(checkbox) {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+
+        // Alternar a seleção
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = !allChecked;
+        });
+
+        // Atualizar o texto do botão
+        document.getElementById('selectAllBtn').textContent = allChecked ? 'Selecionar Todos' : 'Selecionar Todos';
+    });
+</script>
 
 @endsection

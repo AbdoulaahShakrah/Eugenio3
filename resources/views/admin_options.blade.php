@@ -10,6 +10,7 @@
 @section('return', route('home'))
 
 @section('content')
+
 <div class="d-flex justify-content-center align-items-center">
     <form action="{{ route('handleButtons') }}" method="POST" class="col-md-10 mb-2 me-3">
         @csrf
