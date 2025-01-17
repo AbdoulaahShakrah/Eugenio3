@@ -79,10 +79,7 @@ class ChallengeController extends Controller
         $PK_Session = $request->input('session');
         $expectedTextWithStyles = $request->input('expectedTextWithStyles');
 
-        if( Test::where('player_id', $player_id)->where('configuration_id', $config_id)->first() != null ){
-            //TODO Update caso pontuação final seja menor do que nova
-            $classificacao = Test::where('player_id', $player_id)->where('configuration_id', $config_id)->first();
-        }else{
+      
             $classificacao = new Test(
                 [
                     'session_id' => $PK_Session,
@@ -98,7 +95,7 @@ class ChallengeController extends Controller
             );
             $classificacao->save();
 
-        }
+        
         
 
         session()->flash('config_id', $config_id);
