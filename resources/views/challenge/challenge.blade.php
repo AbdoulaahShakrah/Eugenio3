@@ -171,7 +171,7 @@
                 }
 
                 // Calcula o número de WPM
-                const wpm = Math.round(wordCount / ((startCronoSeconds - totalSeconds) / 60));
+                const wpm = Math.round(CORRECT_WORDS / ((startCronoSeconds - totalSeconds) / 60));
 
                 // VARIÁVEL PARA PASSAR wpm
                 // VARIÁVEL DE TEMPO PASSADO PARA PASSAR totalSeconds

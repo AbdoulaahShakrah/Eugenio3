@@ -17,7 +17,7 @@
         <table class="table table-bordered table-striped table-hover table-sm">
             <thead class="thead-light">
                 <tr>
-                    <th class="text-center">Palavras por minuto</th>
+                    <th class="text-center">Palavras certas por minuto</th>
                     <th class="text-center">Palavras erradas</th>
                     <th class="text-center">Palavras certas</th>
                     <th class="text-center">Tempo</th>
