@@ -48,6 +48,7 @@
         </div>
     </div>
 
+    <!--Script para verificação de erros e acertos do teste-->
     <script>
         let CORRECT_WORDS = 0;
         let INCORRECT_WORDS = 0;
@@ -90,23 +91,55 @@
 
         inputText.addEventListener("input", function () {
             const inputValue = inputText.value;
-            const inputValueDividedView = document.querySelector("#inputValueDivided");
-            let inputWords = inputValue.split(" ");
-            wordCount = inputWords.length;
-            const expectedWords = expectedText.split(" ");
-            correctWords = 0;
-            incorrectWords = 0;
 
-            for (let i = 0; i < expectedWords.length; i++) {
-                if (expectedWords[i] === inputWords[i]) {
+            let correctWords = 0;
+            let incorrectWords = 0;
+
+            let inputIndex = 0; // Índice para percorrer o texto digitado
+            let expectedWord = ""; // Palavra sendo formada no texto esperado
+            let inputWord = ""; // Palavra sendo formada no texto digitado
+
+            for (let expectedIndex = 0; expectedIndex < expectedText.length; expectedIndex++) {
+                const expectedChar = expectedText[expectedIndex];
+                const inputChar = inputValue[inputIndex] || ""; // Caractere do input ou vazio se fim do texto
+
+                if (expectedChar === " ") {
+                    // Quando o expectedText encontra um espaço (" ")
+                    if (expectedWord === inputWord) {
+                        correctWords++; // Palavra correta
+                    } else {
+                        incorrectWords++; // Palavra incorreta
+                    }
+
+                    // Reinicia as palavras
+                    expectedWord = "";
+                    inputWord = "";
+
+                    // Avança o índice do input até ao próximo caractere não espaço
+                        inputIndex++;
+                } else {
+                    // Se não é espaço, acumula os caracteres na palavra atual
+                    expectedWord += expectedChar;
+
+                    inputWord += inputChar; // Acumula somente caracteres não espaço no input
+                    inputIndex++;
+                }
+            }
+
+            // Verifica a última palavra após o loop
+            if (expectedWord || inputWord) {
+                if (expectedWord === inputWord) {
                     correctWords++;
                 } else {
                     incorrectWords++;
                 }
-                CORRECT_WORDS = correctWords;
-                INCORRECT_WORDS = incorrectWords;
             }
+
+            // Atualiza os contadores globais
+            CORRECT_WORDS = correctWords;
+            INCORRECT_WORDS = incorrectWords;
         });
+
 
         document.getElementById("terminar").addEventListener("click", function () {
             window.location.href = `/challenge/result?wpm=${WPM}&correctWords=${CORRECT_WORDS}&incorrectWords=${INCORRECT_WORDS}&timePassed=${TIME_PASSED}&pontuacaoFinal=${PONTUACAO_FINAL}&session=${PK_Session}&jogador=${PK_Jogador}&configuracao=${PK_Configuracao}&expectedTextWithStyles=${textoComCertasErradas}`;
