@@ -18,7 +18,7 @@ class SessionFactory extends Factory
     {
         return [
             'session_name' => fake()->text(20),
-            'session_password' => str_replace('.', '', str_replace(' ', '',fake()->text(10))),
+            'session_password' =>"eugenio",
             'created_at' => date("Y-m-d", rand(strtotime('2020-01-01'), strtotime('2024-11-26'))),
             'updated_at' => null,
         ];
