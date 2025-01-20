@@ -17,7 +17,7 @@ class PlayerController extends Controller
     {
         $player_name = $request->input('player_name');
         if (Player::where('player_name', $player_name)->where('session_id', $id)->exists()) {
-            return redirect()->back()->with('error', 'Player already exists in this session.');
+            return redirect()->back()->with('error', 'O jogador com este nome já existe.');
         }
             Player::create(['player_name' => $player_name, 'session_id' => $id]);
         
@@ -34,7 +34,7 @@ class PlayerController extends Controller
     public function edit(Request $request){
         $player = Player::find($request->input('id'));
         if (Player::where('player_name', $request->input('name'))->where('session_id', $player->session_id)->exists()) {
-            return redirect()->back()->with('error', 'Player already exists in this session.');
+            return redirect()->back()->with('error', 'O jogador com este nome já existe.');
         }
         $player->update(['player_name' => $request->input('name')]);
         

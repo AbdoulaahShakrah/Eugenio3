@@ -28,7 +28,7 @@
 
 
 @if (session('error'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" 
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="successAlert" 
         style="position: fixed; top: 15px; left: 75%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 80%;">
         <i class="fas fa-check-circle me-2"></i>
         <strong>Erro!</strong> {{ session('error') }}
