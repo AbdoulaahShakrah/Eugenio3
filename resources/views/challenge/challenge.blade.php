@@ -35,7 +35,7 @@
                 <p id="wpm" class="text-4xl text-dark font-weight-bold mt-5"></p>
                 <p id="inputValueDivided" class="text-4xl text-dark font-weight-bold mt-5"></p>
                 <p id="expected-text" class="text-dark font-weight-bold fs-3 mt-4">{{ $configuracao->configuration_text }}</p>
-                </div>
+            </div>
 
             <!-- Área de Texto para Digitação -->
             <textarea placeholder="Assim que clicar na área de texto, o tempo começará a ser descontado!"
@@ -59,93 +59,81 @@
         const PK_Jogador = "{{ $jogador->player_id }}";
         const PK_Session = "{{ $session->session_id }}";
         let textoComCertasErradas = "";
+        let intervalId;
+        //let wordCount = 0;
 
         const expectedText = document.querySelector("#expected-text").innerText;
         const inputText = document.querySelector("#input-text");
         const expectedTextContainer = document.querySelector("#expected-text");
 
-        inputText.addEventListener("input", function () {
-            const inputValue = inputText.value;
 
-            let expectedTextWithStyles = "";
-
-            for (let i = 0; i < expectedText.length; i++) {
-                if (i < inputValue.length) {
-                    if (inputValue[i] === expectedText[i]) {
-                        expectedTextWithStyles += `<span style="color: green;">${expectedText[i]}</span>`;
-                    } else if (inputValue[i] !== ' ' && expectedText[i] === ' ') {
-                        expectedTextWithStyles += `<span style="background-color: red;">${expectedText[i]}</span>`;
-                    } else {
-                        expectedTextWithStyles += `<span style="color: red;">${expectedText[i]}</span>`;
-                    }
-                } else {
-                    expectedTextWithStyles += expectedText[i];
-                }
-            }
-            expectedTextContainer.innerHTML = expectedTextWithStyles;
-            textoComCertasErradas = expectedTextWithStyles;
-        });
-
-        let intervalId;
-        let wordCount = 0;
-
-        inputText.addEventListener("input", function () {
-            const inputValue = inputText.value;
+        inputText.addEventListener("input", function() {
+            const inputValue = inputText.value.trim();
 
             let correctWords = 0;
             let incorrectWords = 0;
+            let expectedTextWithStyles = "";
 
-            let inputIndex = 0; // Índice para percorrer o texto digitado
-            let expectedWord = ""; // Palavra sendo formada no texto esperado
-            let inputWord = ""; // Palavra sendo formada no texto digitado
+            const PUNCTUATION = /[.,!?;:"']/g; // Expressão regular para remover pontuação
+            const expectedWords = expectedText.split(/\s+/); // Divide o texto esperado em palavras
+            const inputWords = inputValue.split(/\s+/); // Divide o texto digitado em palavras
 
-            for (let expectedIndex = 0; expectedIndex < expectedText.length; expectedIndex++) {
-                const expectedChar = expectedText[expectedIndex];
-                const inputChar = inputValue[inputIndex] || ""; // Caractere do input ou vazio se fim do texto
+            let expectedIndex = 0;
+            let inputIndex = 0;
 
-                if (expectedChar === " ") {
-                    // Quando o expectedText encontra um espaço (" ")
-                    if (expectedWord === inputWord) {
-                        correctWords++; // Palavra correta
-                    } else {
-                        incorrectWords++; // Palavra incorreta
-                    }
+            while (expectedIndex < expectedWords.length) {
+                let expectedWord = expectedWords[expectedIndex];
+                let cleanExpectedWord = expectedWord.replace(PUNCTUATION, ""); // Remove pontuação apenas para verificação
+                let inputWord = inputWords[inputIndex] || ""; // Palavra digitada (ou vazia se não digitada)
+                let cleanInputWord = inputWord.replace(PUNCTUATION, ""); // Remove pontuação para comparação
 
-                    // Reinicia as palavras
-                    expectedWord = "";
-                    inputWord = "";
-
-                    // Avança o índice do input até ao próximo caractere não espaço
-                        inputIndex++;
-                } else {
-                    // Se não é espaço, acumula os caracteres na palavra atual
-                    expectedWord += expectedChar;
-
-                    inputWord += inputChar; // Acumula somente caracteres não espaço no input
-                    inputIndex++;
-                }
-            }
-
-            // Verifica a última palavra após o loop
-            if (expectedWord || inputWord) {
-                if (expectedWord === inputWord) {
+                if (cleanInputWord === cleanExpectedWord) {
+                    // Palavra correta → Verde
+                    expectedTextWithStyles += `<span">${expectedWord}</span> `;
                     correctWords++;
-                } else {
+                    inputIndex++; // Avança no input
+                } else if (inputWord === "") {
+                    // Palavra ausente → Vermelha
+                    expectedTextWithStyles += `<span">${expectedWord}</span> `;
                     incorrectWords++;
+                } else {
+                    // Palavra errada → Cada caractere avaliado
+                    for (let i = 0; i < expectedWord.length; i++) {
+                        if (i < inputWord.length && inputWord[i] === expectedWord[i]) {
+                            expectedTextWithStyles += `<span>${expectedWord[i]}</span>`;
+                        } else {
+                            expectedTextWithStyles += `<span>${expectedWord[i]}</span>`;
+                        }
+                    }
+                        
+                    expectedTextWithStyles += " "; // Adiciona espaço no final da palavra
+                    incorrectWords++;
+                    inputIndex++; // Avança no input
                 }
+
+                expectedIndex++; // Avança no texto esperado
             }
 
             // Atualiza os contadores globais
             CORRECT_WORDS = correctWords;
             INCORRECT_WORDS = incorrectWords;
+
+            // Atualiza o texto esperado com cores corretas
+            expectedTextContainer.innerHTML = expectedTextWithStyles.trim();
         });
 
 
-        document.getElementById("terminar").addEventListener("click", function () {
+
+
+
+
+
+
+        document.getElementById("terminar").addEventListener("click", function() {
             window.location.href = `/challenge/result?wpm=${WPM}&correctWords=${CORRECT_WORDS}&incorrectWords=${INCORRECT_WORDS}&timePassed=${TIME_PASSED}&pontuacaoFinal=${PONTUACAO_FINAL}&session=${PK_Session}&jogador=${PK_Jogador}&configuracao=${PK_Configuracao}&expectedTextWithStyles=${textoComCertasErradas}`;
         });
 
-        inputText.addEventListener("focus", function () {
+        inputText.addEventListener("focus", function() {
             if (intervalId) {
                 return;
             }
@@ -154,10 +142,10 @@
             const time = "{{ $configuracao->configuration_time }}"; // pega o valor da variável
             const timeArray = time.split(":"); // divide o tempo em horas, minutos e segundos
             let totalSeconds = parseInt(timeArray[0]) * 3600 + parseInt(timeArray[1]) * 60 + parseInt(timeArray[2]); // converte para segundos
-            
+
             let startCronoSeconds = totalSeconds;
 
-            intervalId = setInterval(function () {
+            intervalId = setInterval(function() {
                 totalSeconds--; // decrementa o número de segundos
                 let hours = Math.floor(totalSeconds / 3600); // converte para horas
                 let minutes = Math.floor((totalSeconds - hours * 3600) / 60); // converte para minutos
